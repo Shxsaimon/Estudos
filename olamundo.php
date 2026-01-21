@@ -5,18 +5,22 @@
     <title>Primeiro Exemplo PHP</title>
     <style>
         body{
-            background-color: #273747;
+            background-color: #003038;
         }
         h2 {
-            color: red;
-            text-shadow: 0 0 10px #7e050c, 0 0 20px #0000
+            color: #ffffff;
+            text-shadow: 0 0 10px #653ab4, 0 0 20px #653ab4
+        }
+        h1{
+            color: #ffffff;
+            text-shadow: 0 0 10px #653ab4, 0 0 20px #653ab4
         }
    </style>
 </head>
 <body>
     <h1>Testando PHP</h1>
     <?php
-        echo "<h2>Olá, Mundo!<br/> Este é meu primeiro script PHP.</h2>";
+        echo "<h2>Olá, Mundo!<br/> Este é meu primeiro código em PHP.</h2>";
     ?>
 </body>
 </html>
