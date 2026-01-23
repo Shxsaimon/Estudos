@@ -47,8 +47,22 @@ span.foco {
     color: #7e050c;
 }
 
-enviar {
-    font-size: x-large;
+input.botaoenv {
+    background-color: #340094;
+    color: white;
     font-weight: bold;
-    color: #ffffff;
+    border: none;
+    padding: 4px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.botaovoltar {
+    background-color: #340094;
+    color: white;
+    font-weight: bold;
+    border: none;
+    padding: 2px 4px 2px 4px;
+    border-radius: 4px;
+    cursor: pointer;
 }
