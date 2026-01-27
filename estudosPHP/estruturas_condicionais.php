@@ -10,7 +10,8 @@
 <div>
     <?php 
 
-        /*$anonasc = $_GET["ano"];    Exercicio 1 onde o usuario informa o ano de nascimento e informa-o se a idade dele tem voto obrigatório ou opcional
+        // Exercicio 1 onde o usuario informa o ano de nascimento e informa-o se a idade dele tem voto obrigatório ou opcional
+        /*$anonasc = $_GET["ano"];   
         $idade = date("Y") - $anonasc;
         echo "Quem nasceu em $anonasc tem idade de $idade anos.<br/>";
         if (($idade >= 16 && $idade < 18) || ($idade > 65)) {
@@ -32,7 +33,7 @@
         } else {
             echo "Sua média foi $media. <br/> Infelizmente você foi reprovado.<br/> ";
         }
-       
+                
     ?>
 
     <a href="estruturas_condicionais.html" class="botaovoltar">Voltar</a>

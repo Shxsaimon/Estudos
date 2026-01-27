@@ -44,7 +44,7 @@ a:hover {
 
 span.foco {
     font-weight: bold;
-    color: #7e050c;
+    color: #340094;
 }
 
 input.botaoenv {
@@ -52,7 +52,7 @@ input.botaoenv {
     color: white;
     font-weight: bold;
     border: none;
-    padding: 4px;
+    padding: 2px 4px 2px 4px;
     border-radius: 4px;
     cursor: pointer;
 }
