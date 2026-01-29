@@ -1,9 +1,11 @@
 html {
-    font: 15pt Arial;
+
+    font-family: Arial;
 }
 body {
     background: url("wallpaper-php.jpg") no-repeat top center fixed;
     background-size: cover;
+    font-size: 20px;
 }
 
 div::before {
@@ -31,33 +33,20 @@ div {
     border-radius: 10px;
 }
 
-a {
-    color: #273747;
-    text-decoration: none;
-    font-weight: bold;
-    font: 11pt Helvetica;
-}
-
-a:hover {
-    text-decoration: underline;
-}
-
 span.foco {
     font-weight: bold;
     color: #340094;
 }
 
-input.botaoenv {
-    background-color: #340094;
-    color: white;
-    font-weight: bold;
-    border: none;
-    padding: 2px 4px 2px 4px;
-    border-radius: 4px;
-    cursor: pointer;
+input[type="number"] {
+    font: 16px Arial;
+    width: 50px;
+    text-align: center;
 }
 
-.botaovoltar {
+
+.botao {
+    font-size: 14px;
     background-color: #340094;
     color: white;
     font-weight: bold;
@@ -65,6 +54,15 @@ input.botaoenv {
     padding: 2px 4px 2px 4px;
     border-radius: 4px;
     cursor: pointer;
-    font: 15pt Arial;
+    text-decoration: none;
+}
+
+.botao:hover {
+    text-decoration: underline;
+}
+
+.selectpadrao {
+    font: 16px Arial;
+    text-align: center;
 }
 
