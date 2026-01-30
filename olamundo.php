@@ -21,6 +21,12 @@
     <h1>Testando PHP</h1>
     <?php
         echo "<h2>Olá, Mundo!<br/> Este é meu primeiro código em PHP.</h2>";
+
+
+        $cores = ["Verde", "Amarelo", "Azul"];
+        foreach ($cores as $cor) {
+            echo "Cor: $cor <br>";
+        }
     ?>
 </body>
 </html>

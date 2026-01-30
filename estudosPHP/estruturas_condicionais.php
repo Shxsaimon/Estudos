@@ -36,7 +36,7 @@
                 
     ?>
 
-    <a href="estruturas_condicionais.html" class="botaovoltar">Voltar</a>
+    <a href="estruturas_condicionais.html" class="botao">Voltar</a>
 </div>
 </body>
 </html>

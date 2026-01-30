@@ -51,7 +51,7 @@
     ?>
 
 
-    <a href="integracao_com_php.html">Voltar</a>
+    <a href="integracao_com_php.html" class="botao">Voltar</a>
 </div>
 </body>
 </html>
