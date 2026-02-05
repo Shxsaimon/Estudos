@@ -8,58 +8,53 @@
 <body>
     <div>
         <?php
-            $preco = 4.5;
-            $prod = "Leite";
-            //%s - string e %.2f - float com 2 casas decimais
-            printf("O %s custa R$ %.2f", $prod, $preco);
+            // Funções strtolower e strtoupper - Converte uma string para minúscula ou maiúscula, respectivamente
+            $nome = "Saimon Furigo";
+            echo "Meu nome é em letras minúsculas " . strtolower($nome) . ". E meu nome em maiúsculas é " . strtoupper($nome);
             echo "<br/><br/>";
-            //Função print_r - imprimir arrays
-            $x[0]= "Olá";
-            $x[1]= "Mundo";
-            $x[2]= "!";
-            print_r($x);
-            echo "<br/><br/>";
-            // Função wordwrap - Quebra de texto podendo definir o tamanho da linha e se quebra no meio da palavra ou não
-            $txt = "Textão enorme para verificar o funcionamento da função wordwrap em PHP. O wordwrap serve para quebrar linhas muito grandes em várias linhas menores, facilitando a leitura e a organização do texto na tela ou em documentos gerados.";
-            $restxt = wordwrap($txt, 55, "<br/>\n", true);
-            echo "$restxt";
-            echo "<br/><br/>";
-            // Função strlen - Conta o número de caracteres de uma string
-            echo "Tamanho do texto: " . strlen($txt) . " caracteres";
-            echo "<br/><br/>";
-            // Função trim - Remove espaços em branco no início e no fim de uma string. Funções ltrim remove apenas no início e rtrim no fim
-            $nome = "  Olá Mundo!  ";
-            echo "Tamanho do nome: " . strlen($nome) . " caracteres";
-            echo "<br/>";
-            echo "Tamanho do nome sem espaços nas extremidades: " . strlen(trim($nome)) . " caracteres";
-            echo "<br/><br/>";
-            // Função str_word_count - Conta o número de palavras em uma string se usado parametro 0, se usado parametro 1 retorna um array com as palavras e se usado parametro 2 retorna um array com as posições iniciais das palavras
-            $frase = "Estou usando str word count em PHP";
-            $cont = str_word_count($frase, 2);
-            /*echo "A frase tem $cont palavras.";*/ print_r($cont);
-            echo "<br/><br/>";
-            // Função explode - Divide uma string com base em um delimitador e retorna um array
-            $vetor = explode(" ", $frase);
-            print_r($vetor);
-            echo "<br/><br/>";
-            // Função str_split - Divide uma string em um array, onde cada elemento é um caractere da string
-            $vetor2 = str_split($prod);
-            print_r($vetor2);
-            echo "<br/><br/>";
-            // Função implode - Junta os elementos de um array em uma string, usando um delimitador //join()funciona da mesma maneira que implode)
-            $texto = implode("#", $vetor);
-            echo $texto;
-            echo "<br/><br/>";
-            // Função chr - Retorna o caractere correspondente ao valor ASCII fornecido
-            $letra = chr(80);
-            echo "A letra de código ASCII 80 é: $letra";
-            echo "<br/><br/>";
-            // Função ord - Retorna o valor ASCII do primeiro caractere de uma string
-            $letra2 = "P";
-            $valor = ord($letra2);
-            echo "O código ASCII da letra $letra2 é: $valor";
 
-        ?>
+            // Função ucfirst - Converte o primeiro caractere de uma string para maiúscula
+            $nome2 = "saimon furigo";
+            echo "Meu nome com a primeira letra maiúscula é: " . ucfirst($nome2);
+            echo "<br/><br/>";
+            // Função ucwords - Converte o primeiro caractere de cada palavra de uma string para maiúscula
+            echo "Meu nome com a primeira letra de cada palavra maiúscula é: " . ucwords($nome2);
+            echo "<br/><br/>";
+            // Função strrev - Inverte uma string
+            echo strrev($nome);
+            echo "<br/><br/>";
+            // Função strpos/stripos - Encontra a posição da primeira ocorrência de uma substring em uma string, caso seja usada a função stripos a busca é feita sem diferenciar maiúsculas de minúsculas
+            $frase = "Estou aprendendo PHP";
+            echo $frase."<br/>";
+            $posi = stripos($frase, "PhP");
+            echo "A palavra PHP está na posição: $posi";
+            echo "<br/><br/>";
+            // Função substr_count - Conta o número de vezes que uma substring aparece em uma string
+            $contador = substr_count($nome, "i");
+            echo "A letra i aparece $contador vezes no nome: $nome";
+            echo "<br/><br/>";
+            // Função substr - Retorna uma parte de uma string, onde o primeiro parâmetro é a string original, o segundo é a posição inicial e o terceiro (opcional) é o comprimento da substring. Também pode aceitar valores negativos para começar a contagem a partir do final da string
+            $sub = substr($frase, -4,3);
+            echo "A substring extraída da frase é: $sub";
+            echo "<br/><br/>";
+            // Função str_pad - Adiciona preenchimento a uma string até que ela atinja um determinado comprimento. Pode adicionar o preenchimento à esquerda, à direita ou em ambos os lados da string
+            $nome3 = "Saimon";
+            echo "Meu nome é: " . str_pad($nome3, 20, "*", STR_PAD_BOTH) . " E meu nome com preenchimento à direita é: " . str_pad($nome3, 20, "-", STR_PAD_RIGHT);
+            echo "<br/><br/>";
+            // Função str_replace/str_ireplace - Substitui todas as ocorrências de uma substring por outra em uma string. A função str_ireplace não diferencia maiúsculas de minúsculas
+            $nomereplace = str_ireplace("saimon", "Saimão", $nome);
+            echo "Nome original: $nome <br/> Nome alterado: $nomereplace";
+            echo "<br/><br/>";
+            // Função str_repeat - Repete uma string um número especificado de vezes
+            echo "Fim Aulas Funções Nativas de Strings";
+            echo "<br/>";
+            echo str_repeat("-", 30);
+
+
+
+         
+         
+         ?>
     </div>
 </body>
 </html>
