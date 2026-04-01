@@ -1,0 +1,1 @@
+Estudos sobre JS, site de brincadeira e exercícios feitos nas aulas, e possivelmente por fora também, do curso de JS do fenomenal Curso em Vídeo: [text](https://www.cursoemvideo.com/curso/javascript/)

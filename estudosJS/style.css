@@ -1,0 +1,58 @@
+    body {
+        background-color: #1a1641;
+        font-family: Arial, sans-serif;
+        color: #ffffff;
+        font-size: 20px;
+    }
+
+    .container {
+        margin: 10px 50px 10px 50px;
+        padding: 20px;
+        background-color: #333366;
+        border-radius: 8px;
+        display: flex;
+        gap: 20px;
+    }
+
+    #dados button {
+        margin:auto; 
+    }
+
+    .operadores {
+        margin-top: 20px;
+        background-color: #5555aa;
+        padding: 10px;
+        border-radius: 8px;
+        margin:auto;
+    }
+    
+    .exemplo {
+        margin-top: 20px;
+        background-color: #5555aa;
+        padding: 10px;
+        border-radius: 8px;
+        margin:auto;
+    }
+    .resultado {
+        margin-top: 20px;
+        background-color: #5555aa;
+        padding: 10px;
+        border-radius: 8px;
+        margin:auto;
+    }
+
+    .button {
+        background-color: #5555aa;
+        color: white;
+        font-weight: bold;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+    }
+
+    .button:hover {
+        background-color: #ffffff;
+        color: #5555aa;
+        font-weight: bold;
+    }

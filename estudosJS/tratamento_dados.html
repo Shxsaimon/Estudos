@@ -4,38 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meu Site</title>
+    <title>JavaScriptando</title>
+    <link rel="stylesheet" href="style.css">
 
-    <style>
-        body {
-            background-color: #1a1641;
-            font-family: Arial, sans-serif;
-            color: #ffffff;
-            font-size: 20px;
-        }
-
-        .container {
-            margin: 10px 50px 10px 50px;
-            padding: 20px;
-            background-color: #333366;
-            border-radius: 8px;
-        }
-
-        .button {
-            background-color: #00bdca;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-        }
-
-        .button:hover {
-            background-color: #ffffff;
-            color: #00bdca;
-            font-weight: bold;
-        }
-    </style>
 </head>
 
 <body>
@@ -44,10 +15,11 @@
 
     </div>
     <div id="dados" class="container">
-
+        <button title="butão fofo" onclick="inserirDados()" class="button button-dados">Clique para inserir dados</button>
     </div>
 
     <script>
+        function inserirDados() {
         var textos = document.getElementById('dados')
         // Captura os dados (vêm como String)
         var n1 = Number(window.prompt('Digite um número: '))
@@ -70,11 +42,11 @@
         // Formatação automática para Real Brasileiro (R$)
         var formatado = salario.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
 
-        var mensagem = `A soma dos valores é ${s}.<br/>` + `Olá, <strong>${nome}</strong>! Seu nome tem ${nome.length} letras.<br/>` + `Seu nome em maiúsculas é ${nome.toUpperCase()}.<br/>` + `Você tem ${idade} anos. Daqui a 10 anos terá ${idade + 10} anos.` + `<br/>` + `Seu salário atual é ${formatado}.`
+        var mensagem = `A soma dos valores é ${s}.<br/>` + `Olá, ${nome}! Seu nome tem ${nome.length} letras.<br/>` + `Seu nome em maiúsculas é ${nome.toUpperCase()}.<br/>` + `Você tem ${idade} anos. Daqui a 10 anos terá ${idade + 10} anos.` + `<br/>` + `Seu salário atual é ${formatado}.`
         // Exibe o resultado usando concatenação moderna // armazenando as mensagens em uma variavel para depois escrever no html com innerHTML
 
         textos.innerHTML = mensagem
-        
+        }
         
     </script>
 </body>
