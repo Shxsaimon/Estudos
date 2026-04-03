@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScriptando</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+    <div class="container">
+        <h1>DOM!!!</h1>
+
+    </div>
+    <div id="dados" class="container">
+        <div class="dom-conteudo">
+            <h3>Conteúdo do Original</h3>
+            <p>Conteúdo do container</p>
+        </div>
+        <div id="manipuladoget" class="dom-conteudo">
+            <h3>Manipulando com GetElement</h3>
+            <p id="pmodificado">Conteúdo do container</p>
+        </div>
+        <div id="manipuladoqueryselector" class="dom-conteudo">
+            <h3>Manipulando com QuerySelector</h3>
+            <p>Conteúdo do container</p>
+        </div>
+    </div>
+
+    <script>
+        var manipuladoget = document.getElementById('manipuladoget');
+        var p = document.getElementById('pmodificado');
+        p.textContent = 'Aprendendo a manipular o DOM';
+        p.style.color = '#5555aa';
+        p.style.background = '#eee';
+
+        var manipuladoqueryselector = document.querySelector('#manipuladoqueryselector p');
+        manipuladoqueryselector.textContent = 'Manipulando o DOM com querySelector';
+        manipuladoqueryselector.style.color = '#5555aa';
+        manipuladoqueryselector.style.background = '#eee';
+        manipuladoqueryselector.style.borderRadius = '8px';
+
+    </script>
+</body>
+
+</html>

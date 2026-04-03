@@ -40,6 +40,13 @@
         border-radius: 8px;
         margin:auto;
     }
+    .dom-conteudo {
+        margin-top: 20px;
+        background-color: #5555aa;
+        padding: 10px;
+        border-radius: 8px;
+        margin:auto;
+    }
 
     .button {
         background-color: #5555aa;
