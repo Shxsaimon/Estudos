@@ -5,15 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JavaScriptando</title>
-    <link rel="stylesheet" href="style.css">
-
+    <link rel="stylesheet" href="style/style.css">
+    <link rel="icon" type="image/png" href="style/javascriptandoroxo.png">
 </head>
 
 <body>
     <div class="container">
         <h1>DOM!!!</h1>
-
     </div>
+
+    <!-- Usando DOM para manipular o conteúdo com getElementById e querySelector -->
     <div id="dados" class="container">
         <div class="dom-conteudo">
             <h3>Conteúdo do Original</h3>
@@ -27,12 +28,45 @@
             <h3>Manipulando com QuerySelector</h3>
             <p>Conteúdo do container</p>
         </div>
+        
+        
     </div>
-
+    <!-- Usando DOM para manipular eventos com addEventListener -->
+    <div class="container">
+        <div class="dom-conteudo">
+            <h3>Eventos usando o DOM</h3>
+            <!-- <button id="buttondiv" class="buttondiv" onclick="clicar()" onmouseenter="entrar()" onmouseleave="sair()">Clique aqui</button> Poderia fazer assim porém fica muito poluído -->
+            <button id="buttondiv1" class="button center-btn">Clique aqui</button>
+        </div>
+        <div class="dom-conteudo">
+            <h3>Eventos usando o DOM</h3>
+            <button id="buttondiv2" class="button center-btn" onclick="alert('Não faz nada ainda 😒')">Clique aqui</button>
+        </div>
+        <div class="dom-conteudo">
+            <h3>Eventos usando o DOM</h3>
+            <button id="buttondiv3" class="button center-btn" onclick="alert('Não faz nada ainda 😒')">Clique aqui</button>
+        </div>
+    </div>
+    
+    <!-- Usando DOM para manipular eventos com interação do usuário -->
+    <div class="container">
+        <div class="dom-conteudo">
+            <h3>Somar Valores</h3>
+            <input type="number" id="num1" placeholder="Número 1">+
+            <input type="number" id="num2" placeholder="Número 2">
+            <button id="somar" class="button">Somar</button>
+            <button id="limpar" class="button">Limpar</button>
+        </div>
+        <div class="dom-conteudo">
+            <h3>Resultado</h3>
+            <input type="text" id="resultado" placeholder="Resultado" readonly>
+        </div>
+    </div>
     <script>
+        // Manipulando o DOM com getElementById e querySelector
         var manipuladoget = document.getElementById('manipuladoget');
         var p = document.getElementById('pmodificado');
-        p.textContent = 'Aprendendo a manipular o DOM';
+        p.textContent = 'Manipulando o DOM com getElement';
         p.style.color = '#5555aa';
         p.style.background = '#eee';
 
@@ -41,6 +75,48 @@
         manipuladoqueryselector.style.color = '#5555aa';
         manipuladoqueryselector.style.background = '#eee';
         manipuladoqueryselector.style.borderRadius = '8px';
+
+        // Eventos usando o DOM
+        var buttondiv1 = document.getElementById('buttondiv1');
+        buttondiv1.addEventListener('click', clicar);
+        buttondiv1.addEventListener('mouseenter', entrar);
+        buttondiv1.addEventListener('mouseleave', sair);
+        function clicar() {
+            buttondiv1.innerHTML = 'Clicado!';
+
+        }
+        function entrar() {
+            var buttondiv1 = document.getElementById('buttondiv1');
+            buttondiv1.innerHTML = 'É só clicar!';
+        }
+        function sair() {
+            var buttondiv1 = document.getElementById('buttondiv1');
+            buttondiv1.innerHTML = 'Clique aqui!';
+        }
+
+        // Somar Valores
+        var num1 = document.getElementById('num1');
+        var num2 = document.getElementById('num2');
+        var numformat1 = Number(num1.value);
+        var numformat2 = Number(num2.value);
+
+        var buttonsomar = document.getElementById('somar');
+        buttonsomar.addEventListener('click', somar);
+        function somar() {
+            var numformat1 = Number(num1.value);
+            var numformat2 = Number(num2.value);
+            var resultado = numformat1 + numformat2;
+            var resultadoelement = document.getElementById('resultado');
+            resultadoelement.value = resultado;
+        }
+        var buttonlimpar = document.getElementById('limpar');
+        buttonlimpar.addEventListener('click', limpar);
+        function limpar() {
+            var resultadoelement = document.getElementById('resultado');
+            resultadoelement.value = '';
+            num1.value = '';
+            num2.value = '';
+        }
 
     </script>
 </body>

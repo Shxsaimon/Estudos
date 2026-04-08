@@ -12,12 +12,15 @@
         border-radius: 8px;
         display: flex;
         gap: 20px;
+        /* justify-content: space-around; 
+        align-items: center;
+        flex-wrap: wrap; */
     }
-
+    
     #dados button {
         margin:auto; 
     }
-
+    
     .operadores {
         margin-top: 20px;
         background-color: #5555aa;
@@ -49,7 +52,8 @@
     }
 
     .button {
-        background-color: #5555aa;
+        font: 14px Arial, sans-serif;
+        background-color: #333366;
         color: white;
         font-weight: bold;
         padding: 10px 20px;
@@ -57,9 +61,22 @@
         border-radius: 8px;
         cursor: pointer;
     }
-
+    
     .button:hover {
         background-color: #ffffff;
         color: #5555aa;
         font-weight: bold;
+    }
+    
+    .center-btn {
+        margin: auto;
+        display: block;
+    }
+
+    input {
+        font: normal 16px arial, sans-serif;
+        padding: 10px;
+        border-radius: 8px;
+        border: none;
+        margin: 5px;
     }
