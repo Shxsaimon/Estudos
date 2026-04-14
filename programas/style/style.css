@@ -1,0 +1,66 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    background-color: beige;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+header {
+    color:rgb(0, 0, 0);
+    margin:auto;
+    width: 100%;
+    text-align: center;
+    padding: 20px 0 30px 0;
+}
+#horariodia {
+    background-color:rgb(230, 230, 230);
+    color: black;
+    text-align: center;
+    margin:auto;
+    width: 30%;
+    height: 100px;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+#titulohora {
+    padding-top: 28px;
+}
+
+#horario {
+    background-color:rgb(230, 230, 230);
+    color:rgb(0, 0, 0);
+    height: 550px;
+    width: 40%;
+    margin:auto;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+#imagemhora {
+    width: 400px;
+    height: 400px;
+    margin-top: 20px;
+    border-radius: 200px;
+}
+
+#rodape a,
+#rodape a:visited {
+    color: #6f00ff;
+    text-decoration: none;
+}
+
+#rodape-text{
+    font-size: medium;
+    font-weight: bold;
+    backdrop-filter: blur(50px);
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+}
+
+
