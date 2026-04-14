@@ -1,4 +1,4 @@
-var horaAtual = new Date; // Exemplo: 15 de junho de 2024 às 14:30
+var horaAtual = new Date;
 document.getElementById("horaatual").innerHTML = "Agora são " + horaAtual.getHours() + " horas";
 
 if (horaAtual.getHours() < 12) {

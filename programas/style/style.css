@@ -21,7 +21,7 @@ header {
     color: black;
     text-align: center;
     margin:auto;
-    width: 30%;
+    width: clamp(260px, 30%, 600px);
     height: 100px;
     border-radius: 15px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
@@ -34,19 +34,26 @@ header {
 #horario {
     background-color:rgb(230, 230, 230);
     color:rgb(0, 0, 0);
-    height: 550px;
-    width: 40%;
+    min-height: 550px;
+    width: clamp(320px, 40%, 700px);
     margin:auto;
     border-radius: 15px;
     text-align: center;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    padding: 20px 0 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 #imagemhora {
-    width: 400px;
-    height: 400px;
+    width: 100%;
+    max-width: 400px;
+    max-height: 400px;
+    height: auto;
     margin-top: 20px;
     border-radius: 200px;
+    object-fit: cover;
 }
 
 #rodape a,
@@ -61,6 +68,40 @@ header {
     backdrop-filter: blur(50px);
     background-color: rgba(0, 0, 0, 0.05);
     border-radius: 8px;
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 768px) {
+    #horariodia {
+        width: 80%;
+    }
+    #horario {
+        width: 90%;
+        height: auto;
+        min-height: 450px;
+    }
+    #imagemhora {
+        max-width: 300px;
+        max-height: 300px;
+    }
+}
+
+@media (max-width: 480px) {
+    #horariodia {
+        width: 95%;
+        height: 80px;
+    }
+    #horario {
+        width: 95%;
+        height: auto;
+        min-height: 450px;
+    }
+    #imagemhora {
+        max-width: 250px;
+    }
+    body {
+        font-size: 18px;
+    }
 }
 
 
