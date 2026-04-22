@@ -113,7 +113,7 @@ header {
     }
 }
 
-/*Verificar Idade*/
+/*Verificar Idade e Sexo*/
 #tituloverificar{
     color: rgb(255, 255, 255);
 }
@@ -175,4 +175,85 @@ header {
 
 #botao-verificar:hover {
     background-color: #5a00cc;
+}
+
+#verificaridade img {
+    width: 300px;
+    height: 300px;
+    border-radius: 150px;
+    padding-bottom: 30px;
+    object-fit: cover;
+    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.8));
+}
+
+#imagem-verificar {
+    display: flex;
+    justify-content: center;
+}
+
+@media (max-width: 768px) {
+    #verificaridade {
+        font-size: 20px;
+        gap: 12px;
+    }
+
+    #verificaridade img {
+        width: 250px;
+        height: 250px;
+        border-radius: 125px;
+    }
+
+    .campo-data, .campo-sexo {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    #inputidade {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    #botao-verificar {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    #conteudoverifica {
+        width: 95%;
+    }
+
+    #verificaridade {
+        font-size: 16px;
+        gap: 10px;
+        padding-top: 15px;
+    }
+
+    #verificaridade img {
+        width: 200px;
+        height: 200px;
+        border-radius: 100px;
+        padding-bottom: 20px;
+    }
+
+    .campo-data, .campo-sexo {
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    #inputidade {
+        font-size: 12px;
+        padding: 6px;
+        width: 90%;
+    }
+
+    #botao-verificar {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+
+    #verificaridade {
+        font-size: 14px;
+    }
 }
