@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScriptando</title>
+    <link rel="stylesheet" href="style/style.css">
+    <link rel="icon" type="image/png" href="style/javascriptandoroxo.png">
+</head>
+
+<body>
+    <div class="container exec">
+        <h1>Repetições!!!</h1>
+    </div>
+    
+    <div class="container exec">
+        <h2>Comer Pizza com While</h2>
+        <div class="conteudo-exec">
+            <input type="number" id="qtdwhile" class="input-long" onchange="comerPizzaWhile()" max="10" placeholder="Digite a quantidade de fatias">
+        </div>
+        <div class="conteudo-exec">
+            <h3 id="mensagemwhile">Insira a quantidade de fatias para comer pizza</h3>
+        </div>
+        <div class="conteudo-exec">
+            <pre class="codigo-execucao" id="execwhile"></pre>
+        </div>
+    </div>
+    
+    <div class="container exec">
+        <h2>Comer Pizza com Do While</h2>
+        <div class="conteudo-exec">
+            <input type="number" id="qtddowhile" class="input-long" checked onchange="comerPizzaDoWhile()" max="10" placeholder="Digite a quantidade de fatias">
+        </div>
+        <div class="conteudo-exec">
+            <h3 id="mensagemdowhile">Insira a quantidade de fatias para comer pizza</h3>
+        </div>
+        <div class="conteudo-exec">
+            <pre class="codigo-execucao" id="execdowhile"></pre>
+        </div>
+    </div>
+
+    <div class="container exec">
+        <h2>Comer Pizza com For</h2>
+        <div class="conteudo-exec">
+            <input type="number" id="qtdfor" class="input-long" onchange="comerPizzaFor()" placeholder="Digite a quantidade de fatias">
+        </div>
+
+        <div class="conteudo-exec">
+            <h3 id="mensagemfor">Insira a quantidade de fatias para comer pizza</h3>
+        </div>
+        <div class="conteudo-exec">
+            <pre class="codigo-execucao" id="execfor"></pre>
+        </div>
+    </div>
+    <script src="repeticoes.js"></script>
+</body>
+
+</html>
