@@ -19,6 +19,17 @@ header {
     padding: 20px 0 30px 0;
 }
 
+button {
+        font: 14px Arial, sans-serif;
+        background-color: #6f00ff;
+        color: white;
+        font-weight: bold;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+    }
+
 /* "Horário Dia" */
 #horariodia {
     background-color: rgb(230, 230, 230);
@@ -256,4 +267,25 @@ header {
     #verificaridade {
         font-size: 14px;
     }
+}
+
+/* Contador */
+
+input {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin: 10px;
+}
+#contador {
+    background-color: rgb(230, 230, 230);
+    color: black;
+    text-align: center;
+    margin: auto;
+    width: clamp(260px, 30%, 600px);
+    height: auto;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    padding: 20px;
 }
