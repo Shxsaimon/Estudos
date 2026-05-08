@@ -29,20 +29,21 @@ input {
 }
 
 button {
-        font: 14px Arial, sans-serif;
-        background-color: #6f00ff;
-        color: white;
-        font-weight: bold;
-        padding: 10px 20px;
-        border: 2px solid #6f00ff;
-        border-radius: 8px;
-        cursor: pointer;
-    }
+    font: 14px Arial, sans-serif;
+    background-color: #6f00ff;
+    color: white;
+    font-weight: bold;
+    padding: 10px 20px;
+    border: 2px solid #6f00ff;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
 button:hover {
-        background-color: #ffffff;
-        color: #6f00ff;
-        font-weight: bold;
-        border: 2px solid #6f00ff;
+    background-color: #ffffff;
+    color: #6f00ff;
+    font-weight: bold;
+    border: 2px solid #6f00ff;
 }
 
 /* "Horário Dia" */
@@ -140,9 +141,10 @@ button:hover {
 }
 
 /*Verificar Idade e Sexo*/
-#tituloverificar{
+#tituloverificar {
     color: rgb(255, 255, 255);
 }
+
 #bodyverifica {
     background: #9400D3;
     background: linear-gradient(to right, #4B0082, #380081);
@@ -173,7 +175,8 @@ button:hover {
     gap: 15px;
 }
 
-.campo-data, .campo-sexo {
+.campo-data,
+.campo-sexo {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -185,7 +188,7 @@ button:hover {
     border: 1px solid #ccc;
     border-radius: 10px;
     margin-right: 10px;
-    margin:auto;
+    margin: auto;
 }
 
 #botao-verificar {
@@ -229,7 +232,8 @@ button:hover {
         border-radius: 125px;
     }
 
-    .campo-data, .campo-sexo {
+    .campo-data,
+    .campo-sexo {
         flex-direction: column;
         gap: 8px;
     }
@@ -263,7 +267,8 @@ button:hover {
         padding-bottom: 20px;
     }
 
-    .campo-data, .campo-sexo {
+    .campo-data,
+    .campo-sexo {
         flex-direction: column;
         gap: 6px;
     }
@@ -288,11 +293,6 @@ button:hover {
 
 #bodycontador {
     background: linear-gradient(to right, #6f47ff, #380081);
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
 }
 
 #titulocontador {
@@ -309,6 +309,44 @@ button:hover {
     border-radius: 15px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     padding: 20px;
+}
+
+.container-contador {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+.container-contador>div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 420px;
+    gap: 12px;
+}
+
+.container-contador label {
+    flex: 0 0 80px;
+    text-align: right;
+    white-space: nowrap;
+}
+
+.container-contador input {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+#execcontador {
+    background-color: #6f00ff;
+    color: #ffffff;
+    padding: 15px;
+    border-radius: 10px;
+    white-space: pre-wrap;
+    text-align: center;
+    overflow-x: auto;
+    margin: 30px 60px;
 }
 
 .rodape-contador {
