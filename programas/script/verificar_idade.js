@@ -38,19 +38,19 @@ function verificarIdade() {
 
     if (idade <= 3) {
     resultado.innerHTML = "Você é " + (sexo === 'masculino' ? 'um homemzinho' : 'uma mocinha') + " de " + idade + (idade === 1 ? ' ano.' : ' anos.');
-    imagem.src = sexo === 'masculino' ? 'style/bebe-menino.png' : 'style/bebe-menina.jpg';
+    imagem.src = sexo === 'masculino' ? 'style/img/bebe-menino.png' : 'style/img/bebe-menina.jpg';
     } else if (idade <= 12) {
     resultado.innerHTML = "Você é " + (sexo === 'masculino' ? 'um menino' : 'uma menina') + " de " + idade + " anos.";
-    imagem.src = sexo === 'masculino' ? 'style/crianca-menino.jpg' : 'style/crianca-menina.jpg';
+    imagem.src = sexo === 'masculino' ? 'style/img/crianca-menino.jpg' : 'style/img/crianca-menina.jpg';
     } else if (idade <= 19) {
     resultado.innerHTML = "Você é " + (sexo === 'masculino' ? 'um adolescente' : 'uma adolescente') + " de " + idade + " anos.";
-    imagem.src = sexo === 'masculino' ? 'style/adolescente-menino.jpg' : 'style/adolescente-menina.jpg';
+    imagem.src = sexo === 'masculino' ? 'style/img/adolescente-menino.jpg' : 'style/img/adolescente-menina.jpg';
     } else if (idade < 60) {
     resultado.innerHTML = "Você é " + (sexo === 'masculino' ? 'um adulto' : 'uma adulta') + " de " + idade + " anos.";
-    imagem.src = sexo === 'masculino' ? 'style/adulto.png' : 'style/adulta.jpg';
+    imagem.src = sexo === 'masculino' ? 'style/img/adulto.png' : 'style/img/adulta.jpg';
     } else {
     resultado.innerHTML = "Você é " + (sexo === 'masculino' ? 'um idoso' : 'uma idosa') + " de " + idade + " anos.";
-    imagem.src = sexo === 'masculino' ? 'style/idoso.jpg' : 'style/idosa.jpg';
+    imagem.src = sexo === 'masculino' ? 'style/img/idoso.jpg' : 'style/img/idosa.jpg';
     }
 
     // IMAGENS MERAMENTE ILUSTRATIVAS, NÃO ESTOU ASSOCIANDO A NENHUMA PESSOA REAL, APENAS PARA FINS DE EXEMPLO E RISADINHAS.
