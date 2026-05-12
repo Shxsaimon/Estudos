@@ -2,7 +2,7 @@ function atualizarExecucao(elemento, linhas) {
     elemento.textContent = linhas.join("\n");
 }
 
-var timeoutId = null; // Variável para armazenar o ID do timeout atual
+var timeoutIds = []; // array para armazenar o ID do timeout atual
 
 function contarComPasso() {
     var inicio = Number(document.getElementById('numinicio').value);
@@ -10,37 +10,41 @@ function contarComPasso() {
     var numpasso = Number(document.getElementById('passo').value);
     var exec = document.getElementById('execcontador');
     
-    if (isNaN(inicio) || isNaN(fim) || isNaN(numpasso)) {
+    if (inicio == '' || fim == '' || numpasso == '') {
         window.alert('Por favor, preencha todos os campos com números válidos.');
         return;
-    }
-    
-    if (numpasso === 0) {
+    } else if (numpasso === 0) {
         window.alert('O passo não pode ser zero.');
         return;
+    } else if (inicio == fim) {
+        window.alert('O início e o fim não podem ser iguais.');
+        return;
+    } else if (inicio + numpasso > fim && inicio < fim) {
+        window.alert('O passo é muito grande para o intervalo especificado :(');
+        return;
     }
-    
-    // Cancelar a execução anterior se existir
-    if (timeoutId !== null) {
-        clearTimeout(timeoutId);
-        timeoutId = null;
+
+    // Cancelar execuções anteriores se existirem
+    if (timeoutIds.length > 0) {
+        timeoutIds.forEach(id => clearTimeout(id));
+        timeoutIds = [];
     }
     
     var linhas = [];
     atualizarExecucao(exec, linhas);
     exec.hidden = false;
 
-    var i = inicio;
-    function passo() {
-        if (i < fim && ((i + numpasso) <= fim)) {
-            linhas.push( i + ' 👉 ' + (i + numpasso) );
-            atualizarExecucao(exec, linhas);
-            i += numpasso;
-            timeoutId = setTimeout(passo, 200);
-        } else {
-            timeoutId = null; // Limpar quando terminar
-        }
-    }
+    var direcao = inicio < fim ? 1 : -1;
+    var passoAbs = numpasso * direcao;
+    var numPassos = Math.floor(Math.abs(fim - inicio) / Math.abs(numpasso));
 
-    passo();
+    for (let passo = 0; passo < numPassos; passo++) {
+        var timeoutId = setTimeout(() => {
+            var numatual = inicio + passo * passoAbs;
+            var numprox = numatual + passoAbs;
+            linhas.push(numatual + ' 👉 ' + numprox);
+            atualizarExecucao(exec, linhas);
+        }, passo * 200);
+        timeoutIds.push(timeoutId);
+    }
 }
