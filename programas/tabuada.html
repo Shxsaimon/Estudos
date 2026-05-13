@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabuada</title>
+    <link rel="stylesheet" href="style/style.css">
+    <link rel="icon" type="image/png" href="style/img/g.png">
+</head>
+<header>
+    <div>
+        <h1 id="titulocontador">Tabuada</h1>
+    </div>
+</header>
+
+<body id="bodycontador">
+    <section id="contador">
+        <div class="container-contador">
+            <div>
+                <label for="numtab">Número:</label>
+                <input type="number" id="numtab" placeholder="Digite o número para a tabuada" required>
+                <button id="btnContar" class="button" onclick="tabuada()">Contar</button>
+            </div>
+            <div>
+        </div>
+            <div id="resultado">
+                <select class="codigo-execucao" id="selecttabuada" size="5" hidden></select>
+            </div>
+    </section>
+
+    <footer id="rodape" class="rodape-contador">
+        <p id="rodape-text">©2026 Desenvolvido por <a href="https://github.com/Shxsaimon" target="_blank">Shxsaimon</a></p>
+    </footer>
+    <script src="script/tabuada.js"></script>
+</body>
+
+</html>

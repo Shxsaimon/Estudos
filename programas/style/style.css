@@ -352,3 +352,57 @@ button:hover {
 .rodape-contador {
     color: #ffffffe8;
 }
+
+/* Tabuada */
+
+#selecttabuada {
+    background-color: #6f00ff;
+    color: #ffffff;
+    padding: 15px;
+    width: 80%;
+    font-size: 18px;
+    margin: 10px 40px;
+    white-space: pre-wrap;
+    text-align: center;
+    overflow-x: auto;
+    appearance: none;
+    cursor: pointer;
+    border: 2px solid #6f00ff;
+    border-radius: 10px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+#selecttabuada:focus {
+    border-color: #ffffff;
+    box-shadow: 0 0 0 4px rgba(122, 61, 255, 0.45);
+}
+
+#selecttabuada option:checked {
+    background-color: rgb(122, 61, 255);
+    color: #ffffff;
+    border-radius: 10px;
+}
+
+#selecttabuada option:hover {
+    background-color: #7a3dff;
+    color: white;
+    border-radius: 10px;
+}
+
+#selecttabuada::-webkit-scrollbar {
+  width: 10px;
+}
+
+#selecttabuada::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+#selecttabuada::-webkit-scrollbar-thumb {
+  background: #ffffff;
+  border-radius: 10px;
+}
+
+#selecttabuada::-webkit-scrollbar-thumb:hover {
+  background: #e0e0ff;
+}
