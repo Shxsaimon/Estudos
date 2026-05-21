@@ -46,6 +46,23 @@ button:hover {
     border: 2px solid #6f00ff;
 }
 
+select::-webkit-scrollbar {
+  width: 10px;
+}
+
+select::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+select::-webkit-scrollbar-thumb {
+  background: #6f00ff;
+  border-radius: 10px;
+}
+
+select::-webkit-scrollbar-thumb:hover {
+  background: #e0e0ff;
+}
+
 /* "Horário Dia" */
 #horariodia {
     background-color: rgb(230, 230, 230);
@@ -391,18 +408,54 @@ button:hover {
 }
 
 #selecttabuada::-webkit-scrollbar {
-  width: 10px;
+    width: 10px;
 }
 
 #selecttabuada::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.2);
+    background: rgba(0, 0, 0, 0.2);
 }
 
 #selecttabuada::-webkit-scrollbar-thumb {
-  background: #ffffff;
-  border-radius: 10px;
+    background: #ffffff;
+    border-radius: 10px;
 }
 
 #selecttabuada::-webkit-scrollbar-thumb:hover {
-  background: #e0e0ff;
+    background: #e0e0ff;
+}
+
+/* Analisador de Números */
+
+#bodyanalisador {
+    background: linear-gradient(to right, #6f47ff, #380081);
+}
+#tituloanalisar {
+    color: white;
+}
+
+#analisador {
+    background-color: rgb(248, 248, 248);
+    color: black;
+    text-align: center;
+    margin: auto;
+    width: clamp(260px, 30%, 600px);
+    height: auto;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    padding: 20px;
+}
+.numselecionados {
+    background-color: #ffffff;
+    color: #7a3dff;
+    padding: 15px;
+    width: 80%;
+    font-size: 18px;
+    margin: 10px 40px;
+    white-space: pre-wrap;
+    text-align: center;
+    overflow: auto;
+    appearance: none;
+    border: 2px solid #6f00ff;
+    border-radius: 10px;
+    outline: none;
 }

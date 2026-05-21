@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analisar de Números</title>
+    <link rel="stylesheet" href="style/style.css">
+    <link rel="icon" type="image/png" href="style/img/analisanumeros.png">
+</head>
+<header>
+    <div>
+        <h1 id="tituloanalisar">Analisar de Números</h1>
+    </div>
+</header>
+
+<body id="bodyanalisador">
+    <section id="analisador">
+        <div class="container-analisador">
+            <div>
+                <label for="numtab">Número:</label>
+                <input type="number" id="numtab" min="1" max="100" placeholder="Digite o número para a análise" multiple required>
+                <button id="btnAdicionar" class="button" onclick="adicionarNumero()">Adicionar</button>
+                <button id="btnAnalisar" class="button" onclick="analisarNumeros()">Analisar</button>
+            </div>
+            <div>
+                <select class="numselecionados" id="numselecionados" size="3"></select>
+        </div>
+            <div id="resultado">
+                <select class="codigo-execucao" id="selectanalisar" size="5" hidden></select>
+            </div>
+    </section>
+
+    <footer id="rodape" class="rodape-contador">
+        <p id="rodape-text">©2026 Desenvolvido por <a href="https://github.com/Shxsaimon" target="_blank">Shxsaimon</a></p>
+    </footer>
+    <script src="script/analisador_numeros.js"></script>
+</body>
+
+</html>
