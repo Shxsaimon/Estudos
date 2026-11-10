@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Site</title>
+
+    <style>
+        body {
+            background-color: #1a1641;
+            font-family: Arial, sans-serif;
+            color: #ffffff;
+        }
+        .container {
+            margin: 10px 50px 10px 50px;
+            padding: 20px;
+            background-color: #333366;
+            border-radius: 8px;
+            position: relative;
+            display: flex;          /* Ativa o modo flexbox */
+            justify-content: space-around; /* Distribui espaço igual entre e ao redor dos botões */
+            align-items: center;    /* Alinha verticalmente no centro */
+            flex-wrap: wrap;        /* FAZ A MÁGICA: se a janela diminuir, eles pulam linha em vez de sumir */
+            gap: 10px;              /* Garante uma distância mínima entre eles quando estiverem próximos */
+        }
+        .button {
+            background-color: #00bdca;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            min-width: 100px;
+            max-width: 300px;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-color: #ffffff;
+            color: #00bdca;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Olá, mundo!</h1>
+        <p><b>Começando meus estudos de JS!!!</b></p>
+    </div>
+    <div class="container">
+        <button class="button" onclick="cliqueBotao_()">Clica em mim!</button>
+        <button class="button" onclick="cliqueBotao_()">Clica em mim também!</button>
+        <button class="button" onclick="cliqueBotao_()">Clica aqui!</button>
+    </div>
+
+    <script>
+        function cliqueBotao_() {
+            var resposta = window.confirm('Você tem certeza?');
+            if (resposta) {
+            window.alert('MALDIÇÃO QUEBRADA!');
+            console.log('Botão clicado!');
+            }
+        }
+    </script>
+</body>
+
+</html>

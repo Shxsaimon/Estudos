@@ -1,0 +1,498 @@
+/* Globais */
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    background-color: beige;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+header {
+    color: rgb(0, 0, 0);
+    margin: auto;
+    width: 100%;
+    text-align: center;
+    padding: 30px 0 20px 0;
+}
+
+input {
+    padding: 10px;
+    font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin: 10px;
+}
+
+button {
+    font: 14px Arial, sans-serif;
+    background-color: #6f00ff;
+    color: white;
+    font-weight: bold;
+    padding: 10px 20px;
+    border: 1px solid #6f00ff;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #ffffff;
+    color: #6f00ff;
+    font-weight: bold;
+    border: 1px solid #6f00ff;
+}
+
+select::-webkit-scrollbar {
+    width: 10px;
+}
+
+select::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+select::-webkit-scrollbar-thumb {
+    background: #6f00ff;
+    border-radius: 10px;
+}
+
+select::-webkit-scrollbar-thumb:hover {
+    background: #e0e0ff;
+}
+
+/* "Horário Dia" */
+#horariodia {
+    background-color: rgb(230, 230, 230);
+    color: black;
+    text-align: center;
+    margin: auto;
+    width: clamp(260px, 30%, 600px);
+    height: 100px;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+#titulohora {
+    padding-top: 28px;
+}
+
+#horario {
+    background-color: rgb(230, 230, 230);
+    color: rgb(0, 0, 0);
+    min-height: 550px;
+    width: clamp(320px, 40%, 700px);
+    margin: auto;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    padding: 20px 0 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#imagemhora {
+    width: 100%;
+    max-width: 400px;
+    max-height: 400px;
+    height: auto;
+    margin-top: 20px;
+    border-radius: 200px;
+    object-fit: cover;
+}
+
+#rodape a,
+#rodape a:visited {
+    color: #6f00ff;
+    text-decoration: none;
+}
+
+#rodape-text {
+    font-size: medium;
+    font-weight: bold;
+    backdrop-filter: blur(50px);
+    background-color: rgba(0, 0, 0, 0.08);
+    border-radius: 8px;
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 768px) {
+    #horariodia {
+        width: 80%;
+    }
+
+    #horario {
+        width: 90%;
+        height: auto;
+        min-height: 450px;
+    }
+
+    #imagemhora {
+        max-width: 300px;
+        max-height: 300px;
+    }
+}
+
+@media (max-width: 480px) {
+    #horariodia {
+        width: 95%;
+        height: 80px;
+    }
+
+    #horario {
+        width: 95%;
+        height: auto;
+        min-height: 450px;
+    }
+
+    #imagemhora {
+        max-width: 250px;
+    }
+
+    body {
+        font-size: 18px;
+    }
+}
+
+/*Verificar Idade e Sexo*/
+#tituloverificar {
+    color: rgb(255, 255, 255);
+}
+
+#bodyverifica {
+    background: #9400D3;
+    background: linear-gradient(to right, #4B0082, #380081);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#conteudoverifica {
+    background-color: rgb(230, 230, 230);
+    color: black;
+    text-align: center;
+    margin: auto;
+    width: clamp(260px, 30%, 600px);
+    height: auto;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+#verificaridade {
+    font-size: 26px;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.campo-data,
+.campo-sexo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#inputidade {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin-right: 10px;
+    margin: auto;
+}
+
+#botao-verificar {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: medium;
+    background-color: #6f00ff;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+#botao-verificar:hover {
+    background-color: #5a00cc;
+}
+
+#verificaridade img {
+    width: 300px;
+    height: 300px;
+    border-radius: 150px;
+    padding-bottom: 30px;
+    object-fit: cover;
+    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.8));
+}
+
+#imagem-verificar {
+    display: flex;
+    justify-content: center;
+}
+
+@media (max-width: 768px) {
+    #verificaridade {
+        font-size: 20px;
+        gap: 12px;
+    }
+
+    #verificaridade img {
+        width: 250px;
+        height: 250px;
+        border-radius: 125px;
+    }
+
+    .campo-data,
+    .campo-sexo {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    #inputidade {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    #botao-verificar {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    #conteudoverifica {
+        width: 95%;
+    }
+
+    #verificaridade {
+        font-size: 16px;
+        gap: 10px;
+        padding-top: 15px;
+    }
+
+    #verificaridade img {
+        width: 200px;
+        height: 200px;
+        border-radius: 100px;
+        padding-bottom: 20px;
+    }
+
+    .campo-data,
+    .campo-sexo {
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    #inputidade {
+        font-size: 12px;
+        padding: 6px;
+        width: 90%;
+    }
+
+    #botao-verificar {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+
+    #verificaridade {
+        font-size: 14px;
+    }
+}
+
+/* Contador */
+
+#bodycontador {
+    background: linear-gradient(to right, #6f47ff, #380081);
+}
+
+#titulocontador {
+    color: white;
+}
+
+#contador {
+    background-color: rgb(248, 248, 248);
+    color: black;
+    text-align: center;
+    margin: auto;
+    width: clamp(260px, 30%, 600px);
+    height: auto;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    padding: 20px;
+}
+
+.container-contador {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+.container-contador>div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 420px;
+    gap: 12px;
+}
+
+.container-contador label {
+    flex: 0 0 80px;
+    text-align: right;
+    white-space: nowrap;
+}
+
+.container-contador input {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+#execcontador {
+    background-color: #6f00ff;
+    color: #ffffff;
+    padding: 15px;
+    border-radius: 10px;
+    white-space: pre-wrap;
+    text-align: center;
+    overflow-x: auto;
+    margin: 30px 60px;
+}
+
+.rodape-contador {
+    color: #ffffffe8;
+}
+
+/* Tabuada */
+
+#selecttabuada {
+    background-color: #6f00ff;
+    color: #ffffff;
+    padding: 15px;
+    width: 80%;
+    font-size: 18px;
+    margin: 10px 40px;
+    white-space: pre-wrap;
+    text-align: center;
+    overflow-x: auto;
+    appearance: none;
+    cursor: pointer;
+    border: 2px solid #6f00ff;
+    border-radius: 10px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+#selecttabuada:focus {
+    border-color: #ffffff;
+    box-shadow: 0 0 0 4px rgba(122, 61, 255, 0.45);
+}
+
+#selecttabuada option:checked {
+    background-color: rgb(122, 61, 255);
+    color: #ffffff;
+    border-radius: 10px;
+}
+
+#selecttabuada option:hover {
+    background-color: #7a3dff;
+    color: white;
+    border-radius: 10px;
+}
+
+#selecttabuada::-webkit-scrollbar {
+    width: 10px;
+}
+
+#selecttabuada::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+#selecttabuada::-webkit-scrollbar-thumb {
+    background: #ffffff;
+    border-radius: 10px;
+}
+
+#selecttabuada::-webkit-scrollbar-thumb:hover {
+    background: #e0e0ff;
+}
+
+/* Analisador de Números */
+
+#bodyanalisador {
+    background: linear-gradient(to right, #6f47ff, #380081);
+}
+
+#tituloanalisar {
+    color: white;
+}
+
+#analisador {
+    background-color: rgb(248, 248, 248);
+    color: black;
+    text-align: center;
+    margin: auto;
+    width: clamp(260px, 30%, 600px);
+    height: auto;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    padding: 20px;
+}
+
+#numerosAdicionados {
+    background-color: rgb(230, 230, 230);
+    color: black;
+    text-align: center;
+    align-items: center;
+    margin: auto;
+    width: 60%;
+    height: auto;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    overflow: hidden;
+}
+
+#listaNumeros {
+    max-height: 150px;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+#listaNumeros p {
+    height: 10px;
+    width: 40%;
+    margin: 2px auto;
+    padding: 8px;
+    background-color: #6f00ff;
+    color: white;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+}
+
+#listaNumeros::-webkit-scrollbar {
+    width: 10px;
+}
+
+#listaNumeros::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
+}
+
+#listaNumeros::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom, #6f47ff, #380081);
+    border-radius: 10px;
+}
+
+#listaNumeros::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(to bottom, #805dff, #7728df);
+}
