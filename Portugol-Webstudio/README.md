@@ -1,0 +1,1 @@
+Lista de exercícios feitos no Portugol Webstudio, que é baseado no Clássico Visualg. Inicialmente as práticas estarão sendo feitas por meio de exercícios propostos no curso de Introdução à Programação da EBAC.
