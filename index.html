@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hub de Estudos | Saimon Furigo (@shxsaimon)</title>
+    <meta name="description"
+        content="Portal interativo de navegação e execução de estudos em JavaScript, PHP e Portugol." />
+
+    <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap"
+        rel="stylesheet" />
+
+    <!-- Prism.js Syntax Highlighting (Dark Theme Base) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css" />
+
+    <!-- Favicon SVG & Icons -->
+    <link rel="icon" type="image/svg+xml" href="./hub/assets/favicon.svg" />
+    <link rel="apple-touch-icon" href="./hub/assets/logo.svg" />
+
+    <!-- Estilos Customizados do Hub (Obsidian Kinetic Adaptado) -->
+    <link rel="stylesheet" href="./hub/css/style.css" />
+</head>
+
+<body>
+
+    <!-- HEADER SUPERIOR -->
+    <header class="hub-header">
+        <div class="brand">
+            <img src="./hub/assets/logo-symbol.svg" alt="Logo Hub de Estudos" class="brand-logo" width="38" height="38" />
+            <div class="brand-info">
+                <h1>
+                    <span>Hub de Estudos</span>
+                    <span class="brand-badge">@shxsaimon</span>
+                </h1>
+            </div>
+        </div>
+
+        <div class="hub-actions">
+            <!-- Alternador de Tema Claro/Escuro -->
+            <button class="btn-pill" id="theme-toggle-btn" aria-label="Alternar tema">
+                <span>☀️</span> Modo Claro
+            </button>
+
+            <!-- Link para o Repositório -->
+            <a class="btn-pill btn-primary" href="https://github.com/Shxsaimon/Estudos" target="_blank"
+                rel="noopener noreferrer">
+                <span>📂</span> GitHub
+            </a>
+        </div>
+    </header>
+
+    <!-- NAVEGAÇÃO DE TRILHAS (ABAS SUPERIORES) -->
+    <nav class="tracks-nav-container" aria-label="Trilhas de Aprendizado">
+        <div class="tracks-nav" id="tracks-nav">
+            <!-- Inserido dinamicamente via JS -->
+        </div>
+    </nav>
+
+    <!-- CONTEÚDO PRINCIPAL (SPLIT VIEW) -->
+    <main class="hub-main">
+
+        <!-- BARRA LATERAL: LISTA DE EXERCÍCIOS -->
+        <aside class="hub-sidebar" aria-label="Lista de Exercícios">
+            <div class="sidebar-search-box">
+                <div class="search-input-wrapper">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="search-input" placeholder="Buscar exercício ou tópico..."
+                        aria-label="Buscar exercício" />
+                </div>
+            </div>
+            <div class="sidebar-list" id="sidebar-list">
+                <!-- Itens inseridos dinamicamente via JS -->
+            </div>
+        </aside>
+
+        <!-- PAINEL CENTRAL: O QUADRO -->
+        <section class="hub-content" aria-label="Quadro do Exercício">
+
+            <!-- Cabeçalho do Exercício Selecionado -->
+            <div class="content-header">
+                <div class="content-meta">
+                    <div class="content-title-area">
+                        <h2 id="content-title">Carregando...</h2>
+                        <p class="content-description" id="content-desc"></p>
+                    </div>
+                    <div class="content-tags">
+                        <span class="tag-badge" id="content-category">Categoria</span>
+                        <span class="tag-badge" id="content-path">Caminho</span>
+                    </div>
+                </div>
+
+                <!-- Barra de Visualização & Ações -->
+                <div class="content-toolbar">
+                    <div class="view-switcher" role="tablist">
+                        <button class="view-btn active" id="view-preview-btn" role="tab" aria-selected="true">
+                            <span>👁️</span> Visualizar
+                        </button>
+                        <button class="view-btn" id="view-code-btn" role="tab" aria-selected="false">
+                            <span>💻</span> Ver Código
+                        </button>
+                    </div>
+
+                    <div class="action-buttons" id="action-buttons">
+                        <!-- Botões dinâmicos de download, links externos e cópia -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Moldura Central (Quadro Interativo / Código / Info) -->
+            <div class="frame-container" id="frame-container">
+                <!-- Iframe, PHP Runner ou Visualizador de Código injetado aqui -->
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Notificação Toast -->
+    <div class="hub-toast" id="hub-toast">Mensagem</div>
+
+    <!-- Prism.js Script & Languages -->
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-markup.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-markup-templating.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-clike.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-javascript.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-php.min.js"></script>
+
+    <!-- Módulo Principal da Aplicação -->
+    <script type="module" src="./hub/js/app.js"></script>
+
+</body>
+
+</html>
