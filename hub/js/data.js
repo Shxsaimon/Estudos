@@ -7,7 +7,7 @@ export const TRACKS = {
     js: {
         id: 'js',
         name: 'JavaScript',
-        icon: '🟨',
+        icon: 'js',
         badgeColor: '#F7DF1E',
         badgeBg: 'rgba(247, 223, 30, 0.12)',
         description: 'Estudos em JavaScript para web, manipulação de DOM e mini-projetos interativos (Curso em Vídeo).',
@@ -18,7 +18,7 @@ export const TRACKS = {
     php: {
         id: 'php',
         name: 'PHP',
-        icon: '🐘',
+        icon: 'php',
         badgeColor: '#8892BF',
         badgeBg: 'rgba(136, 146, 191, 0.15)',
         description: 'Práticas de PHP back-end, operadores, repetições, manipulação de arrays e integração com HTML.',
@@ -29,7 +29,7 @@ export const TRACKS = {
     visualg: {
         id: 'visualg',
         name: 'Portugol Visualg',
-        icon: '🧩',
+        icon: 'visualg',
         badgeColor: '#10B981',
         badgeBg: 'rgba(16, 185, 129, 0.15)',
         description: 'Fundamentos de lógica de programação e algoritmos estruturados com a ferramenta clássica Visualg.',
@@ -41,7 +41,7 @@ export const TRACKS = {
     webstudio: {
         id: 'webstudio',
         name: 'Portugol Webstudio',
-        icon: '🌐',
+        icon: 'webstudio',
         badgeColor: '#06B6D4',
         badgeBg: 'rgba(6, 182, 212, 0.15)',
         description: 'Exercícios práticos de algoritmos e lógica desenvolvidos no ambiente Portugol Webstudio (EBAC).',

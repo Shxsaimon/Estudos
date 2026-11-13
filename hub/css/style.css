@@ -247,6 +247,51 @@ body {
     color: #F4F0EA;
 }
 
+/* Ícones Oficiais e de Interface */
+.hub-icon {
+    display: inline-block;
+    vertical-align: middle;
+    flex-shrink: 0;
+    line-height: 1;
+}
+
+.track-tab-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    line-height: 1;
+    min-width: 22px;
+    height: 22px;
+}
+
+.brand-icon-js {
+    width: 19px;
+    height: 19px;
+    border-radius: 3px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.brand-icon-php {
+    width: 34px;
+    height: 21px;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.25));
+}
+
+.brand-icon-visualg {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+}
+
+.brand-icon-webstudio {
+    width: 18px;
+    height: 22px;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.25));
+}
+
 /* 4. BARRA DE TRILHAS (TABS) */
 .tracks-nav-container {
     background: var(--bg-surface-glass);
@@ -367,8 +412,10 @@ body {
 .search-input-wrapper .search-icon {
     position: absolute;
     left: 0.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: var(--text-muted);
-    font-size: 0.85rem;
     pointer-events: none;
 }
 
@@ -636,8 +683,21 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 2rem;
     border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.portugol-info-icon.webstudio {
+    background: rgba(255, 194, 0, 0.12);
+    color: #FFC200;
+    border-color: rgba(255, 194, 0, 0.3);
+}
+
+.portugol-info-icon .hub-icon,
+.portugol-info-icon img,
+.portugol-info-icon svg {
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
 }
 
 .portugol-info-panel h3 {

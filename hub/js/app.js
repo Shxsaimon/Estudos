@@ -5,6 +5,7 @@
 
 import { TRACKS, EXERCISES } from './data.js';
 import { executePhpCode } from './php-runner.js';
+import { ICONS } from './icons.js';
 
 // Estado global da aplicação
 const state = {
@@ -34,9 +35,24 @@ const dom = {
 };
 
 /**
+ * Inicialização dos ícones estáticos no cabeçalho e busca
+ */
+function initStaticIcons() {
+    const ghLink = document.getElementById('hub-github-link');
+    if (ghLink) {
+        ghLink.innerHTML = `${ICONS.github} <span>GitHub</span>`;
+    }
+    const searchIconSlot = document.getElementById('search-icon-slot');
+    if (searchIconSlot) {
+        searchIconSlot.innerHTML = ICONS.search;
+    }
+}
+
+/**
  * Inicialização da aplicação
  */
 function init() {
+    initStaticIcons();
     applyTheme(state.theme);
     setupEventListeners();
     renderTracksNav();
@@ -53,8 +69,8 @@ function applyTheme(theme) {
 
     if (dom.themeToggleBtn) {
         dom.themeToggleBtn.innerHTML = theme === 'dark'
-            ? '<span>☀️</span> Modo Claro'
-            : '<span>🌙</span> Modo Escuro';
+            ? `${ICONS.sun} <span>Modo Claro</span>`
+            : `${ICONS.moon} <span>Modo Escuro</span>`;
     }
 }
 
@@ -101,7 +117,8 @@ function renderTracksNav() {
         const count = EXERCISES.filter(ex => ex.track === track.id).length;
         const btn = document.createElement('button');
         btn.className = `track-tab ${state.currentTrack === track.id ? 'active' : ''}`;
-        btn.innerHTML = `<span>${track.icon}</span> <span>${track.name}</span> <span class="count">${count}</span>`;
+        const iconSvg = ICONS[track.icon] || '';
+        btn.innerHTML = `<span class="track-tab-icon">${iconSvg}</span> <span>${track.name}</span> <span class="count">${count}</span>`;
         btn.addEventListener('click', () => selectTrack(track.id));
         dom.tracksNav.appendChild(btn);
     });
@@ -229,10 +246,11 @@ function updateViewSwitcher() {
 
     // Se o exercício não tem front visual, ajusta a label ou desabilita
     if (exercise && !exercise.hasPreview) {
-        dom.viewPreviewBtn.innerHTML = '<span>ℹ️</span> Informações';
+        dom.viewPreviewBtn.innerHTML = `${ICONS.info} <span>Informações</span>`;
     } else {
-        dom.viewPreviewBtn.innerHTML = '<span>👁️</span> Visualizar';
+        dom.viewPreviewBtn.innerHTML = `${ICONS.eye} <span>Visualizar</span>`;
     }
+    dom.viewCodeBtn.innerHTML = `${ICONS.code} <span>Ver Código</span>`;
 }
 
 /**
@@ -244,14 +262,14 @@ function renderActionButtons(exercise) {
     // 1. Botão Baixar Arquivo
     const downloadBtn = document.createElement('button');
     downloadBtn.className = 'btn-pill';
-    downloadBtn.innerHTML = '<span>⬇️</span> Baixar Arquivo';
+    downloadBtn.innerHTML = `${ICONS.download} <span>Baixar Arquivo</span>`;
     downloadBtn.addEventListener('click', () => downloadFile(exercise.path));
     dom.actionButtons.appendChild(downloadBtn);
 
     // 2. Botão Copiar Código
     const copyBtn = document.createElement('button');
     copyBtn.className = 'btn-pill';
-    copyBtn.innerHTML = '<span>📋</span> Copiar Código';
+    copyBtn.innerHTML = `${ICONS.copy} <span>Copiar Código</span>`;
     copyBtn.addEventListener('click', () => copyCurrentCode());
     dom.actionButtons.appendChild(copyBtn);
 
@@ -261,7 +279,7 @@ function renderActionButtons(exercise) {
         openTabLink.className = 'btn-pill';
         openTabLink.href = exercise.path;
         openTabLink.target = '_blank';
-        openTabLink.innerHTML = '<span>🔗</span> Nova Aba';
+        openTabLink.innerHTML = `${ICONS.external} <span>Nova Aba</span>`;
         dom.actionButtons.appendChild(openTabLink);
     }
 
@@ -273,7 +291,7 @@ function renderActionButtons(exercise) {
             extLink.className = 'btn-pill';
             extLink.href = link.url;
             extLink.target = '_blank';
-            extLink.innerHTML = `<span>🌐</span> ${link.label}`;
+            extLink.innerHTML = `${ICONS.external} <span>${link.label}</span>`;
             dom.actionButtons.appendChild(extLink);
         });
     }
@@ -321,9 +339,9 @@ async function renderCodeView(exercise) {
     dom.frameContainer.innerHTML = `
     <div class="code-viewer-container">
       <div class="code-header">
-        <span>📄 ${exercise.path}</span>
+        <span style="display: inline-flex; align-items: center; gap: 0.4rem;">${ICONS.file} ${exercise.path}</span>
         <button class="btn-pill" id="code-copy-action-btn" style="padding: 0.3rem 0.8rem; font-size: 0.75rem;">
-          <span>📋</span> Copiar
+          ${ICONS.copy} <span>Copiar</span>
         </button>
       </div>
       <div class="code-pre-wrapper">
@@ -374,10 +392,10 @@ async function renderPhpRunnerView(exercise) {
     dom.frameContainer.innerHTML = `
     <div class="php-runner-panel">
       <div class="php-params-bar">
-        <span style="font-size: 0.85rem; font-weight: 600; color: var(--text-secondary);">⚙️ Parâmetros GET:</span>
+        <span style="display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.85rem; font-weight: 600; color: var(--text-secondary);">${ICONS.sliders} Parâmetros GET:</span>
         <input type="text" id="php-query-input" class="php-params-input" placeholder="ex: num=7&inicio=1&fim=10" />
         <button class="btn-pill btn-primary" id="php-run-btn" style="padding: 0.45rem 1rem; font-size: 0.8rem;">
-          <span>⚡</span> Re-executar
+          ${ICONS.play} <span>Re-executar</span>
         </button>
       </div>
       <div id="php-output-area" style="flex: 1; display: flex; flex-direction: column;">
@@ -428,13 +446,13 @@ async function renderPhpRunnerView(exercise) {
         } catch (err) {
             outputArea.innerHTML = `
         <div style="padding: 2.5rem; text-align: center; color: var(--text-secondary);">
-          <div style="font-size: 2rem; margin-bottom: 0.75rem;">⚠️</div>
+          <div style="margin-bottom: 0.75rem;">${ICONS.alert}</div>
           <h4 style="color: var(--text-primary); margin-bottom: 0.5rem;">Aviso de Execução PHP</h4>
           <p style="font-size: 0.9rem; margin-bottom: 1.5rem; max-width: 500px; margin-inline: auto;">
             Não foi possível carregar o interpretador WebAssembly online neste momento (${err.message}).
           </p>
           <div style="display: flex; gap: 0.75rem; justify-content: center;">
-            <button class="btn-pill btn-primary" id="fallback-view-code-btn">Ver Código-Fonte</button>
+            <button class="btn-pill btn-primary" id="fallback-view-code-btn">${ICONS.code} <span>Ver Código-Fonte</span></button>
           </div>
         </div>
       `;
@@ -461,7 +479,7 @@ function renderPortugolInfoView(exercise) {
     dom.frameContainer.innerHTML = `
     <div class="portugol-info-panel">
       <div class="portugol-info-icon">
-        ${isWebstudio ? '🌐' : '🧩'}
+        ${isWebstudio ? ICONS.webstudio : ICONS.visualg}
       </div>
       <h3>Código em Pseudocódigo / Algoritmo</h3>
       <p>
@@ -470,13 +488,13 @@ function renderPortugolInfoView(exercise) {
       </p>
       <div class="portugol-actions-group">
         <button class="btn-pill btn-primary" id="portugol-view-code-btn">
-          <span>💻</span> Ver Código Completo
+          ${ICONS.code} <span>Ver Código Completo</span>
         </button>
         <button class="btn-pill" id="portugol-download-btn">
-          <span>⬇️</span> Baixar .${exercise.type}
+          ${ICONS.download} <span>Baixar .${exercise.type}</span>
         </button>
         <a class="btn-pill" href="${toolUrl}" target="_blank">
-          <span>🚀</span> Abrir ${toolName}
+          ${ICONS.external} <span>Abrir ${toolName}</span>
         </a>
       </div>
     </div>
