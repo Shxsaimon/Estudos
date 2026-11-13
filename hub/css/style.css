@@ -33,23 +33,24 @@
     --track-webstudio: #06B6D4;
 }
 
-/* Modo Escuro (Padrão) */
+/* Modo Escuro (Padrão — Electric Indigo com Reflexo de Vidro e Luz Ambiente) */
 [data-theme="dark"] {
-    --bg-canvas: #14121A;
-    --bg-surface: #1C1924;
-    --bg-surface-elevated: #262232;
-    --bg-surface-glass: rgba(28, 25, 36, 0.85);
-    --border-color: rgba(255, 255, 255, 0.08);
-    --border-hover: rgba(129, 41, 217, 0.5);
+    --bg-canvas: #080511;
+    --bg-surface: rgba(22, 15, 46, 0.82);
+    --bg-surface-solid: #160F2E;
+    --bg-surface-elevated: rgba(34, 22, 70, 0.9);
+    --bg-surface-glass: rgba(22, 15, 46, 0.85);
+    --border-color: rgba(138, 75, 255, 0.28);
+    --border-hover: rgba(168, 85, 247, 0.7);
 
     --text-primary: #F4F0EA;
-    --text-secondary: #9C93AB;
-    --text-muted: #6B637B;
+    --text-secondary: #B4A9C8;
+    --text-muted: #7E7395;
 
-    --shadow-card: 0 12px 32px -8px rgba(0, 0, 0, 0.6);
-    --shadow-glow: 0 0 24px rgba(111, 0, 255, 0.25);
-    --code-bg: #121017;
-    --scrollbar-thumb: #352E46;
+    --shadow-card: 0 16px 40px -12px rgba(0, 0, 0, 0.85), inset 0 1px 1px 0 rgba(255, 255, 255, 0.22), inset 0 0 24px 0 rgba(111, 0, 255, 0.08);
+    --shadow-glow: 0 0 28px rgba(111, 0, 255, 0.35);
+    --code-bg: #0B0814;
+    --scrollbar-thumb: #342063;
 }
 
 /* Modo Claro (Foco em Leitura Confortável) */
@@ -94,6 +95,35 @@ body {
     overflow-x: hidden;
     display: flex;
     flex-direction: column;
+    position: relative;
+}
+
+/* Emissores de Luz Ambiente no Topo & Fundo (Obsidian Photonic Glow) */
+[data-theme="dark"] body::before {
+    content: '';
+    position: fixed;
+    top: -160px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1050px;
+    height: 520px;
+    background: radial-gradient(ellipse 65% 50% at 50% 30%, rgba(111, 0, 255, 0.32) 0%, rgba(137, 0, 179, 0.18) 45%, transparent 75%);
+    filter: blur(120px);
+    pointer-events: none;
+    z-index: 0;
+}
+
+[data-theme="dark"] body::after {
+    content: '';
+    position: fixed;
+    top: 280px;
+    right: -150px;
+    width: 650px;
+    height: 650px;
+    background: radial-gradient(circle, rgba(129, 41, 217, 0.14) 0%, transparent 70%);
+    filter: blur(140px);
+    pointer-events: none;
+    z-index: 0;
 }
 
 /* Custom Scrollbars */
@@ -219,10 +249,14 @@ body {
 
 /* 4. BARRA DE TRILHAS (TABS) */
 .tracks-nav-container {
-    background: var(--bg-surface);
+    background: var(--bg-surface-glass);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border-bottom: 1px solid var(--border-color);
     padding: 0.75rem 1.5rem;
     overflow-x: auto;
+    position: relative;
+    z-index: 10;
 }
 
 .tracks-nav {
@@ -280,6 +314,8 @@ body {
     padding: 1.25rem 1.5rem;
     gap: 1.25rem;
     min-height: 0;
+    position: relative;
+    z-index: 1;
 }
 
 /* Barra Lateral de Exercícios */
@@ -287,12 +323,16 @@ body {
     width: 340px;
     flex-shrink: 0;
     background: var(--bg-surface);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-lg);
     display: flex;
     flex-direction: column;
     overflow: hidden;
     box-shadow: var(--shadow-card);
+    position: relative;
+    z-index: 1;
 }
 
 .sidebar-search-box {
@@ -407,6 +447,8 @@ body {
 .hub-content {
     flex: 1;
     background: var(--bg-surface);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-lg);
     display: flex;
@@ -414,6 +456,8 @@ body {
     overflow: hidden;
     box-shadow: var(--shadow-card);
     min-width: 0;
+    position: relative;
+    z-index: 1;
 }
 
 /* Cabeçalho do Quadro */

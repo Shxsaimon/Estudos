@@ -23,14 +23,16 @@
 
 ## 3. Cores & Design Tokens
 
-### Modo Escuro (Dark Mode — Padrão)
-* **Background Canvas:** `#14121A` (Obsidian suave com nuance berinjela)
-* **Superfície / Cartões / Quadro:** `#1C1924`
-* **Superfície Elevada / Hover:** `#262232`
-* **Borda Padrão:** `rgba(255, 255, 255, 0.08)` / `#2E293B`
+### Modo Escuro (Dark Mode — Electric Indigo com Reflexo de Vidro e Luz Ambiente)
+* **Background Canvas:** `#080511` (Obsidian profundo com emissores de luz ambiente difusa no topo e lateral)
+* **Superfície / Cartões / Quadro:** `rgba(22, 15, 46, 0.82)` (Vidro escuro translúcido com `backdrop-filter: blur(20px)`)
+* **Superfície Elevada / Hover:** `rgba(34, 22, 70, 0.90)`
+* **Blocos de Código (Code Background):** `#0B0814`
+* **Borda Padrão:** `rgba(138, 75, 255, 0.28)` (Contorno violeta nítido)
+* **Borda Hover / Destaque:** `rgba(168, 85, 247, 0.70)`
 * **Texto Primário:** `#F4F0EA` (Warm Off-White, excelente legibilidade)
-* **Texto Secundário / Muted:** `#9C93AB` (Lavanda acinzentado)
-* **Sombra de Profundidade:** `0 12px 32px -8px rgba(0, 0, 0, 0.5)`
+* **Texto Secundário / Muted:** `#B4A9C8` (Lavanda claro suave)
+* **Sombra & Reflexo Superior (Glass Bleed):** `0 16px 40px -12px rgba(0, 0, 0, 0.85), inset 0 1px 1px 0 rgba(255, 255, 255, 0.22), inset 0 0 24px 0 rgba(111, 0, 255, 0.08)` (linha de luz superior em vidro que dá acabamento premium)
 
 ### Modo Claro (Light Mode — Foco em Leitura)
 * **Background Canvas:** `#F8F7FA` (Off-white aconchegante com toque lilás sutil)
