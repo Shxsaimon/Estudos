@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="css/estilo.css"/>
+    <link rel="stylesheet" href="../css/estilo.css"/>
     <meta charset="UTF-8"/>
     <title>Curso de PHP - CursoemVideo.com</title>
 </head>
@@ -23,7 +23,7 @@
         
         ?>
         <br/><br/>
-        <a href="estrutura_do_while.html" class="botao">Voltar</a>
+        <a href="tabuada.html" class="botao">Voltar</a>
     </div>
 </body>
 </html>

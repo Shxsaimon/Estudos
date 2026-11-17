@@ -58,10 +58,42 @@ export async function initPhpEngine(onProgress = () => { }) {
  * Executa o código PHP fornecido e retorna o HTML/texto de saída
  * @param {string} phpCode Código PHP do arquivo
  * @param {string} queryString Opcional (ex: "num=7&inicio=1&fim=10")
+ * @param {string} currentFilePath Caminho do arquivo atual para resolução de includes/requires
  * @returns {Promise<{ html: string, rawText: string }>}
  */
-export async function executePhpCode(phpCode, queryString = '') {
-    const php = await initPhpEngine();
+export async function executePhpCode(phpCode, queryString = '', currentFilePath = '') {
+    let php = await initPhpEngine();
+
+    // Reseta o estado do interpretador para limpar funções, constantes e variáveis anteriores,
+    // garantindo execução limpa por requisição e evitando erros de redeclaração (Cannot redeclare).
+    try {
+        await php.refresh();
+    } catch (refreshErr) {
+        console.warn('Aviso ao resetar runtime PHP-WASM, recriando instância...', refreshErr);
+        phpInstance = null;
+        php = await initPhpEngine();
+    }
+
+    // Pré-carrega no sistema de arquivos virtual do php-wasm qualquer arquivo referenciado via include/require
+    if (currentFilePath && (phpCode.includes('include') || phpCode.includes('require'))) {
+        const currentDir = currentFilePath.substring(0, currentFilePath.lastIndexOf('/') + 1);
+        const includeRegex = /(?:include|require)(?:_once)?\s*['"]([^'"]+)['"]/g;
+        let match;
+        while ((match = includeRegex.exec(phpCode)) !== null) {
+            const includedFileName = match[1];
+            try {
+                const targetUrl = currentDir + includedFileName;
+                const incRes = await fetch(targetUrl);
+                if (incRes.ok) {
+                    const incCode = await incRes.text();
+                    await php.writeFile(includedFileName, incCode);
+                    await php.writeFile('/' + includedFileName, incCode);
+                }
+            } catch (incErr) {
+                console.warn(`Aviso ao sincronizar include "${includedFileName}":`, incErr);
+            }
+        }
+    }
 
     let output = '';
     const onOutput = (event) => {
@@ -71,13 +103,15 @@ export async function executePhpCode(phpCode, queryString = '') {
 
     php.addEventListener('output', onOutput);
 
-    // Prepara injeção de parâmetros GET se fornecidos
+    // Prepara injeção de parâmetros GET/POST se fornecidos
     let preparedCode = phpCode;
+    let shim = `<?php ini_set('display_errors', '1'); ?>\n`;
+
     if (queryString && queryString.trim() !== '') {
         const cleanQuery = queryString.replace(/^\?/, '').replace(/'/g, "\\'");
-        const shim = `<?php parse_str('${cleanQuery}', $_GET); $_REQUEST = array_merge($_REQUEST, $_GET); ?>\n`;
-        preparedCode = shim + preparedCode;
+        shim += `<?php parse_str('${cleanQuery}', $_GET); parse_str('${cleanQuery}', $_POST); $_REQUEST = array_merge($_REQUEST, $_GET, $_POST); ?>\n`;
     }
+    preparedCode = shim + preparedCode;
 
     try {
         await php.run(preparedCode);

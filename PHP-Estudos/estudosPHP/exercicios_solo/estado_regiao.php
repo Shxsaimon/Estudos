@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <link rel="stylesheet" href="css/estilo.css"/>
+  <link rel="stylesheet" href="../css/estilo.css"/>
   <meta charset="UTF-8"/>
 
   <title>Curso de PHP - CursoemVideo.com</title>
@@ -57,7 +57,7 @@
                 
     ?>
 
-    <a href="estrutura_switch.html" class="botao">Voltar</a>
+    <a href="estado_regiao.html" class="botao">Voltar</a>
 </div>
 </body>
 </html>

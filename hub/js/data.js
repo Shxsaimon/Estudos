@@ -177,7 +177,8 @@ export const EXERCISES = [
         track: 'php',
         category: 'Exercícios Solo',
         title: 'Verificador de Números Primos',
-        path: 'PHP-Estudos/estudosPHP/exercicios_solo/numeros_primos.php',
+        path: 'PHP-Estudos/estudosPHP/exercicios_solo/numeros_primos.html',
+        scripts: ['PHP-Estudos/estudosPHP/exercicios_solo/numeros_primos.php'],
         type: 'php',
         hasPreview: true,
         description: 'Programa que analisa um número informado e calcula se ele é primo, listando seus múltiplos.'
@@ -187,7 +188,8 @@ export const EXERCISES = [
         track: 'php',
         category: 'Exercícios Solo',
         title: 'Contagem Incremental / Decremental',
-        path: 'PHP-Estudos/estudosPHP/exercicios_solo/contagem_incr_decr.php',
+        path: 'PHP-Estudos/estudosPHP/exercicios_solo/contagem_incr_decr.html',
+        scripts: ['PHP-Estudos/estudosPHP/exercicios_solo/contagem_incr_decr.php'],
         type: 'php',
         hasPreview: true,
         description: 'Contador flexível que detecta se deve contar progressiva ou regressivamente de acordo com os limites.'
@@ -197,7 +199,8 @@ export const EXERCISES = [
         track: 'php',
         category: 'Exercícios Solo',
         title: 'Identificador de Estados & Regiões',
-        path: 'PHP-Estudos/estudosPHP/exercicios_solo/estado_regiao.php',
+        path: 'PHP-Estudos/estudosPHP/exercicios_solo/estado_regiao.html',
+        scripts: ['PHP-Estudos/estudosPHP/exercicios_solo/estado_regiao.php'],
         type: 'php',
         hasPreview: true,
         description: 'Formulário que mapeia a unidade federativa selecionada para a respectiva macrorregião brasileira.'
@@ -207,7 +210,8 @@ export const EXERCISES = [
         track: 'php',
         category: 'Exercícios Solo',
         title: 'Tabuada Dinâmica com Formulário',
-        path: 'PHP-Estudos/estudosPHP/exercicios_solo/tabuada.php',
+        path: 'PHP-Estudos/estudosPHP/exercicios_solo/tabuada.html',
+        scripts: ['PHP-Estudos/estudosPHP/exercicios_solo/tabuada.php'],
         type: 'php',
         hasPreview: true,
         description: 'Gera a tabuada matemática completa com integração de formulário HTML e laço de repetição.'
@@ -217,7 +221,8 @@ export const EXERCISES = [
         track: 'php',
         category: 'Estruturas de Controle',
         title: 'Estruturas Condicionais (if/else)',
-        path: 'PHP-Estudos/estudosPHP/estruturas_condicionais.php',
+        path: 'PHP-Estudos/estudosPHP/estruturas_condicionais.html',
+        scripts: ['PHP-Estudos/estudosPHP/estruturas_condicionais.php'],
         type: 'php',
         hasPreview: true,
         description: 'Avaliação de condições, cálculo de idade de voto e elegibilidade.'
@@ -227,7 +232,8 @@ export const EXERCISES = [
         track: 'php',
         category: 'Estruturas de Controle',
         title: 'Estrutura Switch',
-        path: 'PHP-Estudos/estudosPHP/estrutura_switch.php',
+        path: 'PHP-Estudos/estudosPHP/estrutura_switch.html',
+        scripts: ['PHP-Estudos/estudosPHP/estrutura_switch.php'],
         type: 'php',
         hasPreview: true,
         description: 'Uso da instrução switch/case para operações matemáticas e escolhas múltiplas.'
@@ -247,7 +253,8 @@ export const EXERCISES = [
         track: 'php',
         category: 'Estruturas de Controle',
         title: 'Estrutura de Repetição Do-While',
-        path: 'PHP-Estudos/estudosPHP/estrutura_do_while.php',
+        path: 'PHP-Estudos/estudosPHP/estrutura_do_while.html',
+        scripts: ['PHP-Estudos/estudosPHP/estrutura_do_while.php'],
         type: 'php',
         hasPreview: true,
         description: 'Laço de repetição com teste lógico no final para execução garantida de ao menos uma iteração.'
@@ -257,7 +264,8 @@ export const EXERCISES = [
         track: 'php',
         category: 'Estruturas de Controle',
         title: 'Estrutura de Repetição For',
-        path: 'PHP-Estudos/estudosPHP/estrutura_for.php',
+        path: 'PHP-Estudos/estudosPHP/estrutura_for_html.php',
+        scripts: ['PHP-Estudos/estudosPHP/estrutura_for.php'],
         type: 'php',
         hasPreview: true,
         description: 'Laço com variável de controle para contagens precisas e iterações de passo.'
@@ -337,7 +345,8 @@ export const EXERCISES = [
         track: 'php',
         category: 'Integração Web',
         title: 'Integração PHP com Formulários HTML',
-        path: 'PHP-Estudos/estudosPHP/integracao_com_html.php',
+        path: 'PHP-Estudos/estudosPHP/integracao_com_php.html',
+        scripts: ['PHP-Estudos/estudosPHP/integracao_com_html.php'],
         type: 'php',
         hasPreview: true,
         description: 'Recebimento e tratamento de requisições GET/POST vindas de formulários.'

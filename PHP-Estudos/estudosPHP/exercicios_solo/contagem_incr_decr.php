@@ -30,7 +30,7 @@
         }
     
         ?>
-        <a href="exercicio_while.html" class="botao">Voltar</a>
+        <a href="contagem_incr_decr.html" class="botao">Voltar</a>
     </div>
 </body>
 </html>

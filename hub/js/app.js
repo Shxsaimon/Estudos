@@ -277,13 +277,11 @@ function renderActionButtons(exercise) {
     copyBtn.addEventListener('click', () => copyCurrentCode(copyBtn));
     dom.actionButtons.appendChild(copyBtn);
 
-    // 3. Botão Nova Aba (para exercícios com visualização web / iframe)
-    const hasWebPreview = exercise.hasPreview && (
+    // 3. Botão Nova Aba (para exercícios com visualização web / iframe nativo)
+    const hasWebPreview = exercise.hasPreview && exercise.track !== 'php' && (
         exercise.track === 'js' ||
         exercise.type === 'html' ||
-        exercise.type === 'js' ||
-        exercise.path.endsWith('.html') ||
-        exercise.path.endsWith('.htm')
+        exercise.type === 'js'
     );
     if (hasWebPreview) {
         const openTabLink = document.createElement('a');
@@ -325,13 +323,17 @@ async function renderFrame() {
     }
 
     // MODO 2: VISUALIZAR EM TELA
-    // Caso A: JavaScript / HTML nativo com renderização gráfica em iframe
+    // Caso A: PHP (Execução via PHP-WASM no navegador com interceptação de formulários)
+    if (exercise.track === 'php' || exercise.type === 'php') {
+        renderPhpRunnerView(exercise);
+        return;
+    }
+
+    // Caso B: JavaScript / HTML nativo com renderização gráfica em iframe
     const isHtmlOrJsPreview = exercise.hasPreview && (
         exercise.track === 'js' ||
         exercise.type === 'html' ||
-        exercise.type === 'js' ||
-        exercise.path.endsWith('.html') ||
-        exercise.path.endsWith('.htm')
+        exercise.type === 'js'
     );
 
     if (isHtmlOrJsPreview) {
@@ -339,12 +341,6 @@ async function renderFrame() {
         iframe.className = 'preview-iframe';
         iframe.src = exercise.path;
         dom.frameContainer.appendChild(iframe);
-        return;
-    }
-
-    // Caso B: PHP (Execução via PHP-WASM no navegador)
-    if (exercise.type === 'php') {
-        renderPhpRunnerView(exercise);
         return;
     }
 
@@ -362,12 +358,25 @@ async function renderCodeView(exercise) {
     if (exercise.scripts && exercise.scripts.length > 0) {
         exercise.scripts.forEach(scriptPath => {
             const ext = scriptPath.split('.').pop()?.toLowerCase();
+            let lang = 'javascript';
+            let tag = ext.toUpperCase();
+            if (ext === 'php') {
+                lang = 'php';
+                tag = 'PHP';
+            } else if (ext === 'html' || ext === 'htm') {
+                lang = 'markup';
+                tag = 'HTML';
+            } else if (ext === 'js') {
+                lang = 'javascript';
+                tag = 'JS';
+            }
+
             files.push({
                 path: scriptPath,
                 name: scriptPath.split('/').pop(),
-                type: 'js',
-                tag: ext === 'js' ? 'JS' : ext.toUpperCase(),
-                lang: 'javascript',
+                type: ext,
+                tag: tag,
+                lang: lang,
                 isScript: true
             });
         });
@@ -498,7 +507,7 @@ async function renderCodeView(exercise) {
 }
 
 /**
- * Renderiza o painel do PHP-WASM Runner
+ * Renderiza o painel do PHP-WASM Runner com suporte completo a formulários interativos e navegação interna
  */
 async function renderPhpRunnerView(exercise) {
     dom.frameContainer.innerHTML = `
@@ -513,71 +522,206 @@ async function renderPhpRunnerView(exercise) {
       <div id="php-output-area" style="flex: 1; display: flex; flex-direction: column;">
         <div class="php-status-loading">
           <div class="spinner"></div>
-          <span id="php-status-text">Inicializando motor PHP WebAssembly...</span>
+          <span id="php-status-text">Inicializando ambiente PHP WebAssembly...</span>
         </div>
       </div>
     </div>
   `;
 
-    const statusText = document.getElementById('php-status-text');
     const outputArea = document.getElementById('php-output-area');
     const runBtn = document.getElementById('php-run-btn');
     const queryInput = document.getElementById('php-query-input');
 
-    const runScript = async () => {
-        try {
-            if (statusText) statusText.textContent = 'Lendo script PHP...';
-            const fileRes = await fetch(exercise.path);
-            const phpCode = await fileRes.text();
-            state.currentCodeContent = phpCode;
+    // Identifica o script PHP principal do exercício
+    const mainPhpScript = (exercise.scripts && exercise.scripts.length > 0)
+        ? exercise.scripts[0]
+        : exercise.path;
 
-            if (statusText) statusText.textContent = 'Executando script no interpretador WebAssembly...';
-            const queryString = queryInput?.value || '';
+    let currentLoadedFilePath = exercise.path;
 
-            const { html } = await executePhpCode(phpCode, queryString);
-
-            // Injeta tag base para que CSS (css/estilo.css) e imagens relativas funcionem no iframe
-            const exerciseDir = exercise.path.substring(0, exercise.path.lastIndexOf('/') + 1);
-            let finalHtml = html;
-            if (finalHtml.includes('<head>')) {
-                finalHtml = finalHtml.replace('<head>', `<head><base href="./${exerciseDir}">`);
-            } else if (finalHtml.includes('<html>')) {
-                finalHtml = finalHtml.replace('<html>', `<html><head><base href="./${exerciseDir}"></head>`);
-            } else {
-                finalHtml = `<base href="./${exerciseDir}">` + finalHtml;
-            }
-
-            // Renderiza a saída em um iframe seguro
-            outputArea.innerHTML = `<iframe class="preview-iframe" id="php-result-frame"></iframe>`;
-            const iframe = document.getElementById('php-result-frame');
-            if (iframe && iframe.contentWindow) {
-                iframe.contentWindow.document.open();
-                iframe.contentWindow.document.write(finalHtml);
-                iframe.contentWindow.document.close();
-            }
-        } catch (err) {
-            outputArea.innerHTML = `
-        <div style="padding: 2.5rem; text-align: center; color: var(--text-secondary);">
-          <div style="margin-bottom: 0.75rem;">${ICONS.alert}</div>
-          <h4 style="color: var(--text-primary); margin-bottom: 0.5rem;">Aviso de Execução PHP</h4>
-          <p style="font-size: 0.9rem; margin-bottom: 1.5rem; max-width: 500px; margin-inline: auto;">
-            Não foi possível carregar o interpretador WebAssembly online neste momento (${err.message}).
-          </p>
-          <div style="display: flex; gap: 0.75rem; justify-content: center;">
-            <button class="btn-pill btn-primary" id="fallback-view-code-btn">${ICONS.code} <span>Ver Código-Fonte</span></button>
-          </div>
+    // Helper para exibir erro com opção de fallback
+    const showError = (err) => {
+        if (!outputArea) return;
+        outputArea.innerHTML = `
+      <div style="padding: 2.5rem; text-align: center; color: var(--text-secondary);">
+        <div style="margin-bottom: 0.75rem;">${ICONS.alert}</div>
+        <h4 style="color: var(--text-primary); margin-bottom: 0.5rem;">Aviso de Execução PHP</h4>
+        <p style="font-size: 0.9rem; margin-bottom: 1.5rem; max-width: 500px; margin-inline: auto;">
+          ${err.message || 'Erro durante o processamento do script.'}
+        </p>
+        <div style="display: flex; gap: 0.75rem; justify-content: center;">
+          <button class="btn-pill btn-primary" id="fallback-view-code-btn">${ICONS.code} <span>Ver Código-Fonte</span></button>
         </div>
-      `;
-            document.getElementById('fallback-view-code-btn')?.addEventListener('click', () => {
-                state.currentView = 'code';
-                updateViewSwitcher();
-                renderFrame();
-            });
+      </div>
+    `;
+        document.getElementById('fallback-view-code-btn')?.addEventListener('click', () => {
+            state.currentView = 'code';
+            updateViewSwitcher();
+            renderFrame();
+        });
+    };
+
+    /**
+     * Resolve caminhos relativos considerando ../ e ./ de forma agnóstica de host
+     */
+    const resolveRelativePath = (baseDir, relativePath) => {
+        if (!relativePath || relativePath.startsWith('/') || relativePath.startsWith('http://') || relativePath.startsWith('https://')) {
+            return relativePath;
+        }
+        const full = baseDir + relativePath;
+        const parts = full.split('/');
+        const resolved = [];
+        for (const part of parts) {
+            if (part === '.' || part === '') continue;
+            if (part === '..') {
+                resolved.pop();
+            } else {
+                resolved.push(part);
+            }
+        }
+        return resolved.join('/');
+    };
+
+    /**
+     * Anexa interceptores a formulários e links para manter navegação 100% client-side (sem download acidental)
+     */
+    const attachInterceptors = (iframeDoc, currentDirPath) => {
+        if (!iframeDoc) return;
+
+        // 1. Intercepta submissões de formulário (<form>) no documento do iframe via captura
+        iframeDoc.addEventListener('submit', (e) => {
+            const form = e.target;
+            if (!form || form.tagName !== 'FORM') return;
+
+            e.preventDefault();
+            e.stopPropagation();
+
+            const actionAttr = form.getAttribute('action') || '';
+            const [actionFile, actionQuery] = actionAttr.split('?');
+
+            // Extrai dados preenchidos no formulário
+            const formData = new FormData(form);
+            const searchParams = new URLSearchParams();
+            if (actionQuery) {
+                new URLSearchParams(actionQuery).forEach((v, k) => searchParams.append(k, v));
+            }
+            for (const [key, val] of formData.entries()) {
+                searchParams.append(key, val);
+            }
+            const queryString = searchParams.toString();
+
+            const targetPath = (actionFile && actionFile !== '#')
+                ? resolveRelativePath(currentDirPath, actionFile)
+                : currentLoadedFilePath;
+
+            loadAndRender(targetPath, queryString);
+        }, true);
+
+        // 2. Intercepta cliques em links locais (ex: botão "Voltar") no documento do iframe via captura
+        iframeDoc.addEventListener('click', (e) => {
+            const link = e.target.closest('a[href]');
+            if (!link) return;
+
+            const href = link.getAttribute('href');
+            if (!href || href.startsWith('http://') || href.startsWith('https://') || href.startsWith('#') || href.startsWith('mailto:')) {
+                return;
+            }
+
+            e.preventDefault();
+            e.stopPropagation();
+
+            const [urlPath, query] = href.split('?');
+            const targetPath = resolveRelativePath(currentDirPath, urlPath);
+            loadAndRender(targetPath, query || '');
+        }, true);
+    };
+
+    /**
+     * Renderiza o HTML final no iframe e injeta a tag base para resolução correta de CSS/imagens
+     */
+    const writeToIframe = (htmlContent, currentDirPath) => {
+        let finalHtml = htmlContent;
+        const baseTag = `<base href="./${currentDirPath}">`;
+
+        if (finalHtml.includes('<head>')) {
+            finalHtml = finalHtml.replace('<head>', `<head>${baseTag}`);
+        } else if (finalHtml.includes('<html>')) {
+            finalHtml = finalHtml.replace('<html>', `<html><head>${baseTag}</head>`);
+        } else {
+            finalHtml = `<head>${baseTag}</head>` + finalHtml;
+        }
+
+        let iframe = document.getElementById('php-result-frame');
+        if (!iframe) {
+            outputArea.innerHTML = `<iframe class="preview-iframe" id="php-result-frame"></iframe>`;
+            iframe = document.getElementById('php-result-frame');
+        }
+
+        if (iframe && iframe.contentWindow) {
+            const doc = iframe.contentWindow.document;
+            doc.open();
+            doc.write(finalHtml);
+            doc.close();
+
+            // Adiciona ouvintes para interações posteriores
+            attachInterceptors(doc, currentDirPath);
         }
     };
 
-    runBtn?.addEventListener('click', runScript);
-    runScript();
+    /**
+     * Carrega e processa qualquer arquivo do exercício (.html ou .php via php-wasm)
+     */
+    const loadAndRender = async (filePath, queryString = '') => {
+        currentLoadedFilePath = filePath;
+
+        if (queryInput) {
+            queryInput.value = queryString;
+        }
+
+        if (runBtn) {
+            runBtn.disabled = true;
+            const btnSpan = runBtn.querySelector('span');
+            if (btnSpan) btnSpan.textContent = 'Executando...';
+        }
+
+        try {
+            const currentDir = filePath.substring(0, filePath.lastIndexOf('/') + 1);
+            const isPhp = filePath.endsWith('.php');
+
+            const fileRes = await fetch(filePath);
+            if (!fileRes.ok) throw new Error(`Falha ao ler "${filePath}" (HTTP ${fileRes.status})`);
+            const fileContent = await fileRes.text();
+
+            let renderedHtml = '';
+            if (isPhp) {
+                state.currentCodeContent = fileContent;
+                const { html } = await executePhpCode(fileContent, queryString, filePath);
+                renderedHtml = html;
+            } else {
+                renderedHtml = fileContent;
+            }
+
+            writeToIframe(renderedHtml, currentDir);
+        } catch (err) {
+            console.error('Erro no PHP Runner:', err);
+            showError(err);
+        } finally {
+            if (runBtn) {
+                runBtn.disabled = false;
+                const btnSpan = runBtn.querySelector('span');
+                if (btnSpan) btnSpan.textContent = 'Re-executar';
+            }
+        }
+    };
+
+    // Botão Re-executar na barra superior
+    runBtn?.addEventListener('click', () => {
+        const query = queryInput?.value || '';
+        loadAndRender(mainPhpScript, query);
+    });
+
+    // Ponto de entrada inicial do exercício (HTML de formulário ou PHP direto)
+    loadAndRender(exercise.path, queryInput?.value || '');
 }
 
 /**
