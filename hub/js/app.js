@@ -191,7 +191,7 @@ function renderSidebarList() {
             itemBtn.className = `exercise-item ${state.currentExerciseId === ex.id ? 'active' : ''}`;
             itemBtn.innerHTML = `
         <span class="exercise-item-title">${ex.title}</span>
-        <span class="exercise-type-tag">${ex.type}</span>
+        <span class="exercise-type-tag ${ex.type}">${ex.type}</span>
       `;
             itemBtn.addEventListener('click', () => selectExercise(ex.id));
             groupDiv.appendChild(itemBtn);
@@ -259,26 +259,38 @@ function updateViewSwitcher() {
 function renderActionButtons(exercise) {
     dom.actionButtons.innerHTML = '';
 
-    // 1. Botão Baixar Arquivo
+    const hasSeparateScripts = exercise.scripts && exercise.scripts.length > 0;
+
+    // 1. Botão Único de Download
     const downloadBtn = document.createElement('button');
     downloadBtn.className = 'btn-pill';
-    downloadBtn.innerHTML = `${ICONS.download} <span>Baixar Arquivo</span>`;
-    downloadBtn.addEventListener('click', () => downloadFile(exercise.path));
+    downloadBtn.innerHTML = `${ICONS.download} <span>${hasSeparateScripts ? 'Baixar Arquivos (.zip)' : 'Baixar Arquivo'}</span>`;
+    downloadBtn.title = hasSeparateScripts ? 'Baixar arquivos empacotados em um .zip' : 'Baixar arquivo do exercício';
+    downloadBtn.addEventListener('click', () => downloadExerciseFiles(exercise, downloadBtn));
     dom.actionButtons.appendChild(downloadBtn);
 
-    // 2. Botão Copiar Código
+    // 2. Botão Único de Copiar Código (Copia JS + HTML empilhados)
     const copyBtn = document.createElement('button');
     copyBtn.className = 'btn-pill';
     copyBtn.innerHTML = `${ICONS.copy} <span>Copiar Código</span>`;
-    copyBtn.addEventListener('click', () => copyCurrentCode());
+    copyBtn.title = hasSeparateScripts ? 'Copiar código completo' : 'Copiar código-fonte';
+    copyBtn.addEventListener('click', () => copyCurrentCode(copyBtn));
     dom.actionButtons.appendChild(copyBtn);
 
-    // 3. Botão Nova Aba (para HTML/JS)
-    if (exercise.type === 'html') {
+    // 3. Botão Nova Aba (para exercícios com visualização web / iframe)
+    const hasWebPreview = exercise.hasPreview && (
+        exercise.track === 'js' ||
+        exercise.type === 'html' ||
+        exercise.type === 'js' ||
+        exercise.path.endsWith('.html') ||
+        exercise.path.endsWith('.htm')
+    );
+    if (hasWebPreview) {
         const openTabLink = document.createElement('a');
         openTabLink.className = 'btn-pill';
         openTabLink.href = exercise.path;
         openTabLink.target = '_blank';
+        openTabLink.title = 'Abrir exercício em tela cheia numa nova aba';
         openTabLink.innerHTML = `${ICONS.external} <span>Nova Aba</span>`;
         dom.actionButtons.appendChild(openTabLink);
     }
@@ -313,8 +325,16 @@ async function renderFrame() {
     }
 
     // MODO 2: VISUALIZAR EM TELA
-    // Caso A: JavaScript / HTML nativo
-    if (exercise.type === 'html') {
+    // Caso A: JavaScript / HTML nativo com renderização gráfica em iframe
+    const isHtmlOrJsPreview = exercise.hasPreview && (
+        exercise.track === 'js' ||
+        exercise.type === 'html' ||
+        exercise.type === 'js' ||
+        exercise.path.endsWith('.html') ||
+        exercise.path.endsWith('.htm')
+    );
+
+    if (isHtmlOrJsPreview) {
         const iframe = document.createElement('iframe');
         iframe.className = 'preview-iframe';
         iframe.src = exercise.path;
@@ -333,55 +353,147 @@ async function renderFrame() {
 }
 
 /**
- * Renderiza a tela de visualização de código formatado
+ * Renderiza a tela de visualização de código formatado (suporta múltiplos arquivos empilhados e seções recolhíveis)
  */
 async function renderCodeView(exercise) {
+    // Monta a lista de arquivos a serem exibidos (scripts externos primeiro, depois o HTML principal)
+    const files = [];
+
+    if (exercise.scripts && exercise.scripts.length > 0) {
+        exercise.scripts.forEach(scriptPath => {
+            const ext = scriptPath.split('.').pop()?.toLowerCase();
+            files.push({
+                path: scriptPath,
+                name: scriptPath.split('/').pop(),
+                type: 'js',
+                tag: ext === 'js' ? 'JS' : ext.toUpperCase(),
+                lang: 'javascript',
+                isScript: true
+            });
+        });
+    }
+
+    const mainExt = exercise.path.split('.').pop()?.toLowerCase();
+    let mainLang = 'javascript';
+    let mainTag = mainExt.toUpperCase();
+
+    if (mainExt === 'html' || mainExt === 'htm') {
+        mainLang = 'markup';
+        mainTag = 'HTML';
+    } else if (mainExt === 'php') {
+        mainLang = 'php';
+        mainTag = 'PHP';
+    } else if (mainExt === 'alg' || mainExt === 'por') {
+        mainLang = 'clike';
+        mainTag = mainExt.toUpperCase();
+    } else if (mainExt === 'js') {
+        mainLang = 'javascript';
+        mainTag = 'JS';
+    }
+
+    files.push({
+        path: exercise.path,
+        name: exercise.path.split('/').pop(),
+        type: mainExt,
+        tag: mainTag,
+        lang: mainLang,
+        isScript: false
+    });
+
+    // Renderiza o esqueleto dos blocos no container com cabeçalho recolhível (expandido por padrão)
     dom.frameContainer.innerHTML = `
     <div class="code-viewer-container">
-      <div class="code-header">
-        <span style="display: inline-flex; align-items: center; gap: 0.4rem;">${ICONS.file} ${exercise.path}</span>
-        <button class="btn-pill" id="code-copy-action-btn" style="padding: 0.3rem 0.8rem; font-size: 0.75rem;">
-          ${ICONS.copy} <span>Copiar</span>
-        </button>
-      </div>
-      <div class="code-pre-wrapper">
-        <pre><code id="code-content-block">Carregando código...</code></pre>
-      </div>
+      ${files.map((file, idx) => `
+        <div class="code-file-section" id="code-file-section-${idx}">
+          <div class="code-header" data-idx="${idx}" role="button" tabindex="0" title="Clique para recolher ou expandir">
+            <div class="code-header-left">
+              <span class="code-toggle-chevron-wrap">${ICONS.chevronDown}</span>
+              <span class="code-file-badge ${file.type}">${file.tag}</span>
+              <span class="code-file-path" title="${file.path}">${file.path}</span>
+            </div>
+            <div class="code-header-actions">
+              <button class="btn-pill btn-copy-file" data-idx="${idx}" title="Copiar este arquivo">
+                ${ICONS.copy} <span>Copiar</span>
+              </button>
+            </div>
+          </div>
+          <div class="code-pre-wrapper">
+            <pre><code id="code-block-${idx}" class="language-${file.lang}">Carregando ${file.name}...</code></pre>
+          </div>
+        </div>
+      `).join('')}
     </div>
   `;
 
-    document.getElementById('code-copy-action-btn')?.addEventListener('click', copyCurrentCode);
+    // Registra eventos de recolher/expandir em cada seção de arquivo
+    document.querySelectorAll('.code-file-section').forEach(section => {
+        const header = section.querySelector('.code-header');
+        if (!header) return;
 
-    try {
-        const response = await fetch(exercise.path);
-        if (!response.ok) throw new Error('Falha ao ler arquivo local.');
-        const code = await response.text();
-        state.currentCodeContent = code;
+        const toggleCollapse = (e) => {
+            // Ignora se o clique foi em um botão dentro das ações
+            if (e.target.closest('.code-header-actions')) return;
+            section.classList.toggle('collapsed');
+        };
 
-        const codeBlock = document.getElementById('code-content-block');
-        if (codeBlock) {
-            codeBlock.textContent = code;
-
-            // Mapeia linguagem para o Prism.js
-            let prismLang = 'javascript';
-            if (exercise.type === 'php') prismLang = 'php';
-            else if (exercise.type === 'html') prismLang = 'markup';
-            else if (exercise.type === 'alg' || exercise.type === 'por') prismLang = 'clike';
-
-            codeBlock.className = `language-${prismLang}`;
-            try {
-                if (window.Prism) {
-                    window.Prism.highlightElement(codeBlock);
-                }
-            } catch (prismErr) {
-                console.warn('Aviso no Prism highlight:', prismErr);
+        header.addEventListener('click', toggleCollapse);
+        header.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                if (e.target.closest('.code-header-actions')) return;
+                e.preventDefault();
+                section.classList.toggle('collapsed');
             }
-        }
+        });
+    });
+
+    // Carrega o conteúdo dos arquivos de forma concorrente via fetch
+    try {
+        const loadedFiles = await Promise.all(files.map(async (file) => {
+            try {
+                const response = await fetch(file.path);
+                if (!response.ok) throw new Error(`Status HTTP ${response.status}`);
+                const code = await response.text();
+                return { ...file, content: code, error: null };
+            } catch (err) {
+                return {
+                    ...file,
+                    content: `// Erro ao carregar arquivo: ${err.message}\n// Caminho: ${file.path}`,
+                    error: err
+                };
+            }
+        }));
+
+        // Atualiza a referência global de cópia (dá preferência ao script de lógica)
+        const mainScript = loadedFiles.find(f => f.isScript);
+        state.currentCodeContent = mainScript ? mainScript.content : (loadedFiles[0]?.content || '');
+
+        // Preenche cada bloco e aplica o Prism highlight
+        loadedFiles.forEach((file, idx) => {
+            const codeBlock = document.getElementById(`code-block-${idx}`);
+            if (codeBlock) {
+                codeBlock.textContent = file.content;
+                codeBlock.className = `language-${file.lang}`;
+
+                try {
+                    if (window.Prism) {
+                        window.Prism.highlightElement(codeBlock);
+                    }
+                } catch (prismErr) {
+                    console.warn(`Aviso no Prism highlight para ${file.path}:`, prismErr);
+                }
+            }
+
+            // Ação de cópia do arquivo individual
+            const copyBtn = document.querySelector(`.btn-copy-file[data-idx="${idx}"]`);
+            if (copyBtn) {
+                copyBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    copySingleFileCode(file.content, copyBtn);
+                });
+            }
+        });
     } catch (err) {
-        const codeBlock = document.getElementById('code-content-block');
-        if (codeBlock) {
-            codeBlock.textContent = `// Erro ao carregar código: ${err.message}\n// Caminho: ${exercise.path}`;
-        }
+        console.error('Erro ao renderizar visualização de código:', err);
     }
 }
 
@@ -512,7 +624,99 @@ function renderPortugolInfoView(exercise) {
 }
 
 /**
- * Faz download de um arquivo do repositório
+ * Realiza o download dos arquivos do exercício.
+ * Se houver múltiplos arquivos (ex: HTML + JS), gera um .zip contendo a estrutura.
+ * Se houver apenas um arquivo, baixa-o diretamente.
+ */
+async function downloadExerciseFiles(exercise, btnElement) {
+    const hasMultiple = exercise.scripts && exercise.scripts.length > 0;
+
+    // Se for arquivo único, faz o download direto
+    if (!hasMultiple) {
+        return downloadFile(exercise.path);
+    }
+
+    const span = btnElement?.querySelector('span');
+    const origText = span ? span.textContent : 'Baixar Arquivos (.zip)';
+
+    try {
+        if (span) span.textContent = 'Gerando .zip...';
+        showToast('Preparando pacote .zip para download...');
+
+        // Lista de arquivos a empacotar
+        const filesToZip = [];
+        exercise.scripts.forEach(s => filesToZip.push(s));
+        filesToZip.push(exercise.path);
+
+        // Fallback se o JSZip não estiver carregado
+        if (typeof window.JSZip === 'undefined') {
+            console.warn('JSZip não carregado, iniciando download individual.');
+            for (const filePath of filesToZip) {
+                await downloadFile(filePath);
+            }
+            if (span) span.textContent = origText;
+            return;
+        }
+
+        const zip = new window.JSZip();
+        const baseDir = exercise.path.substring(0, exercise.path.lastIndexOf('/') + 1);
+
+        // Busca conteúdo de todos os arquivos concorrentemente
+        await Promise.all(filesToZip.map(async (filePath) => {
+            const res = await fetch(filePath);
+            if (!res.ok) throw new Error(`Falha ao ler ${filePath} (Status: ${res.status})`);
+            const blob = await res.blob();
+
+            // Determina caminho relativo dentro do zip para preservar referências
+            let relativePath = filePath;
+            if (filePath.startsWith(baseDir)) {
+                relativePath = filePath.slice(baseDir.length);
+            } else {
+                relativePath = filePath.split('/').pop() || 'arquivo';
+            }
+
+            zip.file(relativePath, blob);
+        }));
+
+        const zipBlob = await zip.generateAsync({
+            type: 'blob',
+            compression: 'DEFLATE',
+            compressionOptions: { level: 6 }
+        });
+
+        // Nome do zip baseado no arquivo principal
+        const baseName = exercise.path.split('/').pop()?.replace(/\.[^/.]+$/, '') || exercise.id;
+        const zipName = `${baseName}.zip`;
+
+        const url = URL.createObjectURL(zipBlob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = zipName;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+
+        showToast(`Download de "${zipName}" concluído!`);
+        if (span) span.textContent = 'Baixado!';
+        setTimeout(() => {
+            if (span) span.textContent = origText;
+        }, 2000);
+    } catch (err) {
+        console.error('Erro ao gerar .zip:', err);
+        showToast(`Erro ao gerar .zip (${err.message}). Tentando download individual...`);
+
+        // Fallback: faz download individual
+        for (const filePath of [exercise.path, ...exercise.scripts]) {
+            await downloadFile(filePath);
+        }
+
+        if (span) span.textContent = origText;
+    }
+}
+
+/**
+ * Faz download de um arquivo individual do repositório
  */
 async function downloadFile(filePath) {
     try {
@@ -533,21 +737,98 @@ async function downloadFile(filePath) {
 }
 
 /**
- * Copia o código atual para a área de transferência
+ * Copia o conteúdo de um arquivo individual com feedback visual no botão
  */
-async function copyCurrentCode() {
+async function copySingleFileCode(content, btnElement) {
+    try {
+        await navigator.clipboard.writeText(content);
+        const span = btnElement?.querySelector('span');
+        const origText = span ? span.textContent : 'Copiar';
+        if (span) span.textContent = 'Copiado!';
+        btnElement?.classList.add('btn-copied');
+        showToast('Código copiado para a área de transferência!');
+        setTimeout(() => {
+            if (span) span.textContent = origText;
+            btnElement?.classList.remove('btn-copied');
+        }, 1800);
+    } catch (err) {
+        showToast('Erro ao copiar código.');
+    }
+}
+
+/**
+ * Copia todo o código do exercício selecionado para a área de transferência.
+ * Se houver múltiplos arquivos (ex: JS + HTML), copia o JS primeiro e o HTML abaixo,
+ * claramente separados por cabeçalhos de comentário explicativos.
+ */
+async function copyCurrentCode(btnElement) {
     const exercise = EXERCISES.find(ex => ex.id === state.currentExerciseId);
     if (!exercise) return;
 
+    const span = btnElement?.querySelector('span');
+    const origText = span ? span.textContent : 'Copiar Código';
+
     try {
-        if (!state.currentCodeContent) {
-            const res = await fetch(exercise.path);
-            state.currentCodeContent = await res.text();
+        const filesToCopy = [];
+
+        // 1. Scripts de lógica primeiro (JS)
+        if (exercise.scripts && exercise.scripts.length > 0) {
+            exercise.scripts.forEach(scriptPath => {
+                filesToCopy.push({
+                    path: scriptPath,
+                    isHtml: false
+                });
+            });
         }
-        await navigator.clipboard.writeText(state.currentCodeContent);
-        showToast('Código copiado para a área de transferência!');
+
+        // 2. Arquivo principal abaixo (HTML/PHP/ALG)
+        filesToCopy.push({
+            path: exercise.path,
+            isHtml: exercise.path.endsWith('.html') || exercise.path.endsWith('.htm')
+        });
+
+        // Caso de arquivo único
+        if (filesToCopy.length === 1) {
+            let code = state.currentCodeContent;
+            if (!code) {
+                const res = await fetch(filesToCopy[0].path);
+                if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                code = await res.text();
+                state.currentCodeContent = code;
+            }
+            await navigator.clipboard.writeText(code);
+        } else {
+            // Múltiplos arquivos: busca todos e concatena com separadores claros
+            const contents = await Promise.all(filesToCopy.map(async (file) => {
+                const res = await fetch(file.path);
+                if (!res.ok) throw new Error(`HTTP ${res.status} em ${file.path}`);
+                const code = await res.text();
+
+                const separator = file.isHtml
+                    ? `<!-- ==========================================================================\n   ARQUIVO: ${file.path}\n   ========================================================================== -->`
+                    : `/* ==========================================================================\n   ARQUIVO: ${file.path}\n   ========================================================================== */`;
+
+                return `${separator}\n\n${code.trim()}`;
+            }));
+
+            const combinedCode = contents.join('\n\n\n');
+            await navigator.clipboard.writeText(combinedCode);
+        }
+
+        if (span) span.textContent = 'Copiado!';
+        btnElement?.classList.add('btn-copied');
+        showToast(filesToCopy.length > 1
+            ? 'Todos os códigos copiados!'
+            : 'Código copiado!'
+        );
+
+        setTimeout(() => {
+            if (span) span.textContent = origText;
+            btnElement?.classList.remove('btn-copied');
+        }, 1800);
     } catch (err) {
-        showToast('Erro ao copiar código.');
+        console.error('Erro ao copiar código:', err);
+        showToast('Erro ao copiar código para a área de transferência.');
     }
 }
 

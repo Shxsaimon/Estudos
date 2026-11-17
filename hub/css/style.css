@@ -488,6 +488,32 @@ body {
     color: var(--text-muted);
     border: 1px solid var(--border-color);
     text-transform: uppercase;
+    transition: all 0.2s ease;
+}
+
+.exercise-type-tag.js {
+    background: rgba(247, 223, 30, 0.12);
+    color: #F7DF1E;
+    border-color: rgba(247, 223, 30, 0.3);
+}
+
+.exercise-type-tag.html {
+    background: rgba(227, 79, 38, 0.12);
+    color: #F16529;
+    border-color: rgba(227, 79, 38, 0.3);
+}
+
+.exercise-type-tag.php {
+    background: rgba(119, 123, 179, 0.12);
+    color: #8892BF;
+    border-color: rgba(119, 123, 179, 0.3);
+}
+
+.exercise-type-tag.alg,
+.exercise-type-tag.por {
+    background: rgba(16, 185, 129, 0.12);
+    color: #10B981;
+    border-color: rgba(16, 185, 129, 0.3);
 }
 
 /* 6. O QUADRO (PAINEL CENTRAL) */
@@ -632,27 +658,148 @@ body {
     flex: 1;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
     position: relative;
+    background: var(--code-bg);
+}
+
+.code-file-section {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.code-file-section:last-child {
+    border-bottom: none;
 }
 
 .code-header {
-    padding: 0.5rem 1.25rem;
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    padding: 0.55rem 1.25rem;
     background: var(--bg-surface);
     border-bottom: 1px solid var(--border-color);
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 1rem;
     font-family: var(--font-code);
-    font-size: 0.75rem;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.code-header:hover {
+    background: var(--bg-surface-elevated);
+    color: var(--text-primary);
+}
+
+.code-toggle-chevron-wrap {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+}
+
+.code-toggle-chevron {
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), color 0.2s ease;
+    flex-shrink: 0;
     color: var(--text-muted);
 }
 
+.code-header:hover .code-toggle-chevron {
+    color: var(--text-primary);
+}
+
+.code-file-section.collapsed .code-toggle-chevron {
+    transform: rotate(-90deg);
+}
+
+.code-file-section.collapsed .code-pre-wrapper {
+    display: none;
+}
+
+.code-header-left {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.code-file-badge {
+    font-family: var(--font-code);
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 0.15rem 0.5rem;
+    border-radius: var(--radius-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    flex-shrink: 0;
+}
+
+.code-file-badge.js {
+    background: rgba(247, 223, 30, 0.15);
+    color: #F7DF1E;
+    border: 1px solid rgba(247, 223, 30, 0.35);
+}
+
+.code-file-badge.html {
+    background: rgba(227, 79, 38, 0.15);
+    color: #F16529;
+    border: 1px solid rgba(227, 79, 38, 0.35);
+}
+
+.code-file-badge.php {
+    background: rgba(119, 123, 179, 0.15);
+    color: #8892BF;
+    border: 1px solid rgba(119, 123, 179, 0.35);
+}
+
+.code-file-badge.alg,
+.code-file-badge.por {
+    background: rgba(16, 185, 129, 0.15);
+    color: #10B981;
+    border: 1px solid rgba(16, 185, 129, 0.35);
+}
+
+.code-file-path {
+    font-size: 0.8rem;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.code-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+}
+
+.code-header-actions .btn-pill {
+    padding: 0.25rem 0.7rem;
+    font-size: 0.75rem;
+}
+
+.btn-pill.btn-copied {
+    border-color: #10B981;
+    color: #10B981;
+}
+
 .code-pre-wrapper {
-    flex: 1;
-    overflow: auto;
     padding: 1.25rem;
     background: var(--code-bg);
+    overflow-x: auto;
 }
 
 .code-pre-wrapper pre {

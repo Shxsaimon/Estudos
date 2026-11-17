@@ -59,7 +59,8 @@ export const EXERCISES = [
         category: 'Mini-Projetos',
         title: 'Analisador de Números',
         path: 'JS-Estudos/programas/analisador_numeros.html',
-        type: 'html',
+        scripts: ['JS-Estudos/programas/script/analisador_numeros.js'],
+        type: 'js',
         hasPreview: true,
         description: 'Lógica em JS para coletar números em uma lista e calcular quantidade, maior, menor, soma e média.'
     },
@@ -69,7 +70,8 @@ export const EXERCISES = [
         category: 'Mini-Projetos',
         title: 'Contador com Passo',
         path: 'JS-Estudos/programas/contador.html',
-        type: 'html',
+        scripts: ['JS-Estudos/programas/script/contador.js'],
+        type: 'js',
         hasPreview: true,
         description: 'Contador interativo com início, fim e passo configurável pelo usuário.'
     },
@@ -79,7 +81,8 @@ export const EXERCISES = [
         category: 'Mini-Projetos',
         title: 'Horários do Dia',
         path: 'JS-Estudos/programas/horarios_dias.html',
-        type: 'html',
+        scripts: ['JS-Estudos/programas/script/horarios_dias.js'],
+        type: 'js',
         hasPreview: true,
         description: 'Página que altera layout, imagem e cores dinamicamente conforme a hora atual do sistema.'
     },
@@ -89,7 +92,8 @@ export const EXERCISES = [
         category: 'Mini-Projetos',
         title: 'Gerador de Tabuada',
         path: 'JS-Estudos/programas/tabuada.html',
-        type: 'html',
+        scripts: ['JS-Estudos/programas/script/tabuada.js'],
+        type: 'js',
         hasPreview: true,
         description: 'Ao digitar um número, gera dinamicamente um select com a tabuada completa de 1 a 10.'
     },
@@ -99,7 +103,8 @@ export const EXERCISES = [
         category: 'Mini-Projetos',
         title: 'Verificador de Idade',
         path: 'JS-Estudos/programas/verificar_idade.html',
-        type: 'html',
+        scripts: ['JS-Estudos/programas/script/verificar_idade.js'],
+        type: 'js',
         hasPreview: true,
         description: 'Calcula a idade a partir do ano de nascimento informado e exibe foto correspondente à faixa etária e sexo.'
     },
@@ -109,7 +114,7 @@ export const EXERCISES = [
         category: 'Fundamentos',
         title: 'Introdução ao DOM & Eventos',
         path: 'JS-Estudos/estudosJS/dom.html',
-        type: 'html',
+        type: 'js',
         hasPreview: true,
         description: 'Manipulação de elementos da árvore DOM via getElementById, querySelector e eventos interativos.'
     },
@@ -119,7 +124,8 @@ export const EXERCISES = [
         category: 'Fundamentos',
         title: 'Estruturas Condicionais',
         path: 'JS-Estudos/estudosJS/condicionais.html',
-        type: 'html',
+        scripts: ['JS-Estudos/estudosJS/condicionais.js'],
+        type: 'js',
         hasPreview: true,
         description: 'Práticas com if, else, condições aninhadas e switch em JavaScript.'
     },
@@ -129,7 +135,8 @@ export const EXERCISES = [
         category: 'Fundamentos',
         title: 'Estruturas de Repetição',
         path: 'JS-Estudos/estudosJS/repeticoes.html',
-        type: 'html',
+        scripts: ['JS-Estudos/estudosJS/repeticoes.js'],
+        type: 'js',
         hasPreview: true,
         description: 'Laços while, do-while e for com visualização da lógica na tela.'
     },
@@ -139,7 +146,7 @@ export const EXERCISES = [
         category: 'Fundamentos',
         title: 'Operadores Aritméticos & Lógicos',
         path: 'JS-Estudos/estudosJS/operadores.html',
-        type: 'html',
+        type: 'js',
         hasPreview: true,
         description: 'Testes práticos de operadores de atribuição, relacionais e aritméticos em JS.'
     },
@@ -149,7 +156,7 @@ export const EXERCISES = [
         category: 'Fundamentos',
         title: 'Tratamento de Dados',
         path: 'JS-Estudos/estudosJS/tratamento_dados.html',
-        type: 'html',
+        type: 'js',
         hasPreview: true,
         description: 'Manipulação de strings, conversão de números (Number.parseInt) e formatação monetária.'
     },
@@ -159,7 +166,7 @@ export const EXERCISES = [
         category: 'Fundamentos',
         title: 'Primeiro Script: Olá Mundo',
         path: 'JS-Estudos/olamundo.html',
-        type: 'html',
+        type: 'js',
         hasPreview: true,
         description: 'O clássico Olá Mundo em JavaScript com window.alert e document.write.'
     },
